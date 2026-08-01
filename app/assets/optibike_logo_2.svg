@@ -1,0 +1,16 @@
+<svg width="400" height="120" viewBox="0 0 400 120" xmlns="http://www.w3.org/2000/svg">
+  <!-- Podkreślenie (gradient cyan→magenta) -->
+  <defs>
+    <linearGradient id="neonGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00FFFF"/>
+      <stop offset="100%" stop-color="#FF00FF"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Linia podkreślenia -->
+  <path d="M50 100 L350 100" stroke="url(#neonGradient)" stroke-width="8" stroke-linecap="round"/>
+
+  <!-- Tekst "OptiBike" -->
+  <text x="50" y="80" font-family="Roboto, sans-serif" font-size="48" font-weight="bold" fill="#E0E0E0">Opti</text>
+  <text x="180" y="80" font-family="Roboto, sans-serif" font-size="48" font-weight="bold" fill="#FF00FF">Bike</text>
+</svg>

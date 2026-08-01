@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App -->
+    <string name="app_name">OptiBike</string>
+    <string name="app_tagline">Zoptymalizuj swoją jazdę</string>
+    <string name="app_description">Profesjonalna aplikacja do bike fittingu dla rowerów gravel i road. Zoptymalizuj swoją pozycję w 7 krokach z pomiarami manualnymi lub AR.</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_welcome_title">Witamy w OptiBike</string>
+    <string name="onboarding_welcome_subtitle">Zoptymalizuj pozycję na rowerze gravel lub road w 7 prostych krokach</string>
+    <string name="onboarding_language_title">Wybierz język</string>
+    <string name="onboarding_get_started">Rozpocznij</string>
+
+    <!-- Bottom Navigation -->
+    <string name="nav_guide">Przewodnik</string>
+    <string name="nav_calculator">Kalkulator</string>
+    <string name="nav_history">Historia</string>
+    <string name="nav_settings">Ustawienia</string>
+
+    <!-- Guide -->
+    <string name="guide_title">Przewodnik Bike Fittingu</string>
+    <string name="guide_subtitle">Postępuj zgodnie z tymi 7 krokami, aby zoptymalizować swoją pozycję na rowerze</string>
+
+    <!-- Steps -->
+    <string name="step_1_title">Krok 1: Wysokość siodła</string>
+    <string name="step_1_description">Ustaw optymalną wysokość siodła na podstawie wzrostu, długości nogi i typu roweru. Użyj szablonu pomiarowego i poziomicy dla precyzyjnych wyników.</string>
+    <string name="step_1_tip">Zbyt niska wysokość siodła zwiększa obciążenie kolan, a zbyt wysoka powoduje niestabilność miednicy.</string>
+
+    <string name="step_2_title">Krok 2: Nachylenie siodła</string>
+    <string name="step_2_description">Dostosuj kąt siodła za pomocą szablonu i poziomicy. Wpływa na ciśnienie na krocze i komfort rąk/szyi.</string>
+    <string name="step_2_tip">0° (poziomo) jest idealne dla większości rowerzystów. +1° (przód) dla agresywnej postawy, -1° (tył) dla wyprostownia.</string>
+
+    <string name="step_3_title">Krok 3: Pozioma regulacja siodła</string>
+    <string name="step_3_description">Ustaw siodło w osi poziomej (przód/tył). Zależy od geometrii ramy i stylu jazdy.</string>
+    <string name="step_3_tip">Wpływa na przenoszenie mocy i komfort. Dostosuj zgodnie z preferencjami jazdy.</string>
+
+    <string name="step_4_title">Krok 4: Odległość siodło-kierownica</string>
+    <string name="step_4_description">Pomiar sitting length (odległości między siodłem a kierownicą). Uwzględnia długość ramy (reach).</string>
+    <string name="step_4_tip">Dla rowerów gravel rozważ -5mm dla lepszego komfortu na technicznych terenach.</string>
+
+    <string name="step_5_title">Krok 5: Wysokość kierownicy</string>
+    <string name="step_5_description">Oblicz różnicę wysokości między siodłem a kierownicą za pomocą wzoru: A-B=C.</string>
+    <string name="step_5_tip">Użyj tabeli referencyjnej dla optymalnych wartości na podstawie wzrostu.</string>
+
+    <string name="step_6_title">Krok 6: Regulacja kokpitu</string>
+    <string name="step_6_description">Ustaw szerokość kierownicy (≈ szerokość barków), kąt hoodów i pozycję dźwigni hamulca/przerzutek.</string>
+    <string name="step_6_tip">Dla aerodynamiki: -2cm od szerokości barków. Dla komfortu: +2cm.</string>
+
+    <string name="step_7_title">Krok 7: Pozycjonowanie butów</string>
+    <string name="step_7_description">Ustaw oś siły (metatarsophalangeal joint) nad osią pedału dla optymalnego przeniesienia mocy.</string>
+    <string name="step_7_tip">Prawidłowa pozycja butów zapobiega bólowi kolan i poprawia wydajność pedałowania.</string>
+
+    <!-- Measurement -->
+    <string name="measurement_title">Pomiary</string>
+    <string name="measurement_manual_title">Pomiar manualny</string>
+    <string name="measurement_ar_title">Pomiar AR</string>
+    <string name="measurement_manual_description">Wprowadź pomiary ręcznie</string>
+    <string name="measurement_ar_description">Skanuj rower i ciało za pomocą AR</string>
+
+    <!-- Form Labels -->
+    <string name="form_height">Wzrost (cm)</string>
+    <string name="form_leg_length">Długość nogi (inside leg, cm)</string>
+    <string name="form_shoulder_width">Szerokość barków (cm)</string>
+    <string name="form_bike_type">Typ roweru</string>
+    <string name="form_bike_type_gravel">Gravel</string>
+    <string name="form_bike_type_road">Road</string>
+    <string name="form_saddle_height">Aktualna wysokość siodła (mm)</string>
+    <string name="form_handlebar_height">Aktualna wysokość kierownicy (mm)</string>
+    <string name="form_saddle_type">Typ siodła</string>
+    <string name="form_handlebar_type">Typ kierownicy</string>
+    <string name="form_shoe_size">Rozmiar buta (EU)</string>
+    <string name="form_pedal_type">Typ pedałów</string>
+
+    <!-- Buttons -->
+    <string name="btn_start">Rozpocznij</string>
+    <string name="btn_calculate">Oblicz</string>
+    <string name="btn_save">Zapisz</string>
+    <string name="btn_export_pdf">Eksportuj PDF</string>
+    <string name="btn_continue">Kontynuuj</string>
+    <string name="btn_back">Powrót</string>
+    <string name="btn_cancel">Anuluj</string>
+    <string name="btn_start_scanning">Rozpocznij skanowanie</string>
+    <string name="btn_manual_measurement">Pomiar manualny</string>
+    <string name="btn_ar_measurement">Pomiar AR</string>
+
+    <!-- Results -->
+    <string name="results_title">Wyniki Bike Fittingu</string>
+    <string name="results_subtitle">Oto zoptymalizowane parametry Twojego roweru</string>
+    <string name="results_summary">Podsumowanie dla Twojego roweru</string>
+    <string name="results_recommendations">Zalecenia</string>
+    <string name="results_current_values">Aktualne wartości</string>
+    <string name="results_recommended_values">Zalecane wartości</string>
+    <string name="results_saddle_height">Wysokość siodła</string>
+    <string name="results_saddle_tilt">Nachylenie siodła</string>
+    <string name="results_handlebar_height">Wysokość kierownicy</string>
+    <string name="results_saddle_handlebar_distance">Odległość siodło-kierownica</string>
+    <string name="results_cockpit">Regulacja kokpitu</string>
+    <string name="results_cleat_position">Pozycja butów</string>
+
+    <!-- Reference Tables -->
+    <string name="table_saddle_height_title">Tabela referencyjna (Wzrost → Wysokość siodła)</string>
+    <string name="table_height">Wzrost (cm)</string>
+    <string name="table_road">Road (mm)</string>
+    <string name="table_gravel">Gravel (mm)</string>
+
+    <!-- History -->
+    <string name="history_title">Historia pomiarów</string>
+    <string name="history_empty">Brak pomiarów. Uzupełnij pierwszy bike fitting!</string>
+    <string name="history_delete">Usuń</string>
+    <string name="history_delete_all">Usuń wszystko</string>
+    <string name="history_delete_confirmation">Czy na pewno chcesz usunąć ten pomiar?</string>
+    <string name="history_delete_all_confirmation">Czy na pewno chcesz usunąć wszystkie pomiary?</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Ustawienia</string>
+    <string name="settings_language">Język aplikacji</string>
+    <string name="settings_language_english">Angielski</string>
+    <string name="settings_language_polish">Polski</string>
+    <string name="settings_units">Jednostki</string>
+    <string name="settings_units_metric">Metryczne (cm/mm)</string>
+    <string name="settings_units_imperial">Imperialne (in/ft)</string>
+    <string name="settings_dark_mode">Tryb ciemny</string>
+    <string name="settings_sounds">Dźwięki</string>
+    <string name="settings_measurement_precision">Precyzja pomiarów</string>
+    <string name="settings_about">O aplikacji</string>
+    <string name="settings_version">Wersja</string>
+    <string name="settings_privacy_policy">Polityka prywatności</string>
+
+    <!-- AR Measurement -->
+    <string name="ar_title">Pomiar AR</string>
+    <string name="ar_scan_bike">Skanuj swój rower</string>
+    <string name="ar_instructions">Instrukcje:</string>
+    <string name="ar_instruction_1">Ustaw rower na płaskiej powierzchni</string>
+    <string name="ar_instruction_2">Zapewnij dobre oświetlenie</string>
+    <string name="ar_instruction_3">Skanuj z odległości ~1m</string>
+    <string name="ar_instruction_4">Trzymaj urządzenie stabilnie</string>
+    <string name="ar_enable_camera">Włącz kamerę, aby rozpocząć skanowanie</string>
+    <string name="ar_not_supported_title">AR niedostępne</string>
+    <string name="ar_not_supported_message">Twoje urządzenie nie obsługuje ARCore. Użyj pomiaru manualnego.</string>
+
+    <!-- PDF Export -->
+    <string name="pdf_title">Raport Bike Fittingu</string>
+    <string name="pdf_date">Data</string>
+    <string name="pdf_bike_type">Typ roweru</string>
+    <string name="pdf_height">Wzrost</string>
+    <string name="pdf_leg_length">Długość nogi</string>
+    <string name="pdf_results">Wyniki</string>
+    <string name="pdf_recommendations">Zalecenia</string>
+    <string name="pdf_notes">Uwagi</string>
+
+    <!-- Errors & Validation -->
+    <string name="error_title">Błąd</string>
+    <string name="error_required_field">To pole jest wymagane</string>
+    <string name="error_invalid_value">Nieprawidłowa wartość</string>
+    <string name="error_height_range">Wzrost musi być między 100-220 cm</string>
+    <string name="error_leg_length_range">Długość nogi musi być między 60-120 cm</string>
+    <string name="error_shoulder_width_range">Szerokość barków musi być między 30-60 cm</string>
+    <string name="error_storage_full">Niewystarczająca ilość miejsca. Usuń niepotrzebne pliki.</string>
+    <string name="error_pdf_generation">Nie udało się wygenerować PDF. Spróbuj ponownie.</string>
+
+    <!-- Toasts & Snackbars -->
+    <string name="toast_saved">Pomiar zapisany!</string>
+    <string name="toast_exported">PDF wyeksportowano pomyślnie!</string>
+    <string name="toast_deleted">Pomiar usunięty</string>
+    <string name="toast_copied">Skopiowano do schowka!</string>
+
+    <!-- Expert Tips -->
+    <string name="tip_expert">Wskazówka ekspercka:</string>
+    <string name="tip_saddle_height_low">Zbyt niska wysokość siodła zwiększa obciążenie kolan i redukuje moc.</string>
+    <string name="tip_saddle_height_high">Zbyt wysoka wysokość siodła powoduje niestabilność miednicy i złą kontrolę.</string>
+    <string name="tip_saddle_tilt">Nachylenie siodła wpływa na komfort i krążenie krwi. 0° jest optymalne dla większości rowerzystów.</string>
+
+    <!-- App Info -->
+    <string name="about_title">O OptiBike</string>
+    <string name="about_description">OptiBike to profesjonalna aplikacja do bike fittingu dla rowerów gravel i road. Pomaga zoptymalizować pozycję jazdy poprzez 7-krokowy proces z pomiarami manualnymi lub AR.</string>
+    <string name="about_version">Wersja %s</string>
+    <string name="about_author">0x-void Dev Team</string>
+    <string name="about_website">https://0x-void.tech</string>
+</resources>

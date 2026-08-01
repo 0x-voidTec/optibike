@@ -1,0 +1,1557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bike Fitting App - Cyberpunk UI Mockups</title>
+    <style>
+        :root {
+            --bg-primary: #0A0A0F;
+            --bg-secondary: #121217;
+            --bg-card: #1E1E24;
+            --accent-cyan: #00FFFF;
+            --accent-magenta: #FF00FF;
+            --text-primary: #E0E0E0;
+            --text-secondary: #8A8A8A;
+            --text-muted: #6A6A70;
+            --success: #00FF88;
+            --error: #FF4444;
+            --border: #2A2A30;
+            --border-light: #3A3A40;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .mockup-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3 {
+            color: var(--accent-cyan);
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            border-bottom: 2px solid var(--accent-cyan);
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-top: 40px;
+        }
+
+        .section {
+            margin-bottom: 60px;
+            background-color: var(--bg-secondary);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .phone-mockup {
+            width: 360px;
+            height: 780px;
+            background-color: var(--bg-primary);
+            border-radius: 30px;
+            padding: 20px;
+            margin: 20px auto;
+            border: 3px solid var(--border);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .phone-mockup::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 25px;
+            background-color: var(--bg-card);
+            border-radius: 15px;
+            border: 1px solid var(--border);
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-secondary);
+            border-radius: 20px;
+            overflow: auto;
+            padding: 15px;
+        }
+
+        /* ===== COMMON COMPONENTS ===== */
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 15px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 15px;
+        }
+
+        .status-bar-icons {
+            display: flex;
+            gap: 5px;
+        }
+
+        .status-bar-icon {
+            width: 18px;
+            height: 18px;
+            background-color: var(--text-muted);
+            border-radius: 50%;
+        }
+
+        .bottom-nav {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--bg-card);
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            color: var(--text-secondary);
+            font-size: 0.7rem;
+            padding: 5px 10px;
+            border-radius: 8px;
+        }
+
+        .nav-item.active {
+            color: var(--accent-cyan);
+        }
+
+        .nav-item .icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        .fab {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-magenta));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--bg-primary);
+            font-weight: bold;
+            box-shadow: 0 4px 20px rgba(0, 255, 255, 0.5);
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-cyan);
+            color: var(--bg-primary);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--accent-cyan);
+            border: 1px solid var(--accent-cyan);
+        }
+
+        .btn-ghost {
+            background-color: transparent;
+            color: var(--text-primary);
+        }
+
+        /* ===== CARDS ===== */
+        .card {
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 15px;
+            border: 1px solid var(--border);
+        }
+
+        .card-title {
+            color: var(--accent-cyan);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .card-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+
+        /* ===== INPUT FIELDS ===== */
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-label {
+            display: block;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px 16px;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 1rem;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 0 2px rgba(0, 255, 255, 0.2);
+        }
+
+        /* ===== STEP INDICATOR ===== */
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .step {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: var(--bg-card);
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .step.active {
+            background-color: var(--accent-cyan);
+            border-color: var(--accent-cyan);
+            color: var(--bg-primary);
+        }
+
+        .step.completed {
+            background-color: var(--success);
+            border-color: var(--success);
+            color: var(--bg-primary);
+        }
+
+        /* ===== PROGRESS BAR ===== */
+        .progress-container {
+            width: 100%;
+            height: 6px;
+            background-color: var(--bg-card);
+            border-radius: 3px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-magenta));
+            border-radius: 3px;
+            width: 33%; /* Example: 1/3 steps completed */
+        }
+
+        /* ===== LIST ITEMS ===== */
+        .list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .list-item:last-child {
+            border-bottom: none;
+        }
+
+        .list-item-title {
+            font-size: 1rem;
+        }
+
+        .list-item-value {
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+
+        /* ===== NEON EFFECTS ===== */
+        .neon-glow {
+            text-shadow: 0 0 10px var(--accent-cyan);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-magenta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ===== SPECIFIC SCREEN STYLES ===== */
+        /* Splash Screen */
+        .splash-content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .splash-logo {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-magenta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .splash-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+        }
+
+        /* Guide Screen */
+        .guide-header {
+            margin-bottom: 20px;
+        }
+
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .guide-card {
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .guide-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 255, 255, 0.2);
+        }
+
+        .guide-card-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-magenta));
+            border-radius: 12px;
+            margin: 0 auto 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .guide-card-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* Measurement Screen */
+        .measurement-header {
+            margin-bottom: 20px;
+        }
+
+        .measurement-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .measurement-tab {
+            flex: 1;
+            padding: 10px;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .measurement-tab.active {
+            background-color: var(--accent-cyan);
+            color: var(--bg-primary);
+            border-color: var(--accent-cyan);
+        }
+
+        .measurement-form {
+            margin-bottom: 20px;
+        }
+
+        .measurement-result {
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 20px;
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .result-row:last-child {
+            border-bottom: none;
+        }
+
+        /* AR Measurement Screen */
+        .ar-view {
+            width: 100%;
+            height: 300px;
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            border: 2px dashed var(--border);
+        }
+
+        .ar-instructions {
+            margin-bottom: 20px;
+        }
+
+        .ar-instruction {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .ar-instruction-number {
+            width: 24px;
+            height: 24px;
+            background-color: var(--accent-cyan);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--bg-primary);
+            font-weight: bold;
+        }
+
+        /* Results Screen */
+        .results-header {
+            margin-bottom: 20px;
+        }
+
+        .results-visualization {
+            width: 100%;
+            height: 200px;
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+        }
+
+        .results-summary {
+            margin-bottom: 20px;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .summary-card {
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            padding: 16px;
+            border: 1px solid var(--border);
+        }
+
+        .summary-card-label {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            margin-bottom: 4px;
+        }
+
+        .summary-card-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-cyan);
+        }
+
+        /* History Screen */
+        .history-list {
+            margin-top: 20px;
+        }
+
+        .history-item {
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .history-item-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .history-item-date {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .history-item-bike {
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+
+        .history-item-details {
+            display: flex;
+            gap: 16px;
+            font-size: 0.9rem;
+        }
+
+        .history-item-detail {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .history-item-detail-label {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+        }
+
+        .history-item-detail-value {
+            color: var(--text-primary);
+        }
+
+        /* Settings Screen */
+        .settings-section {
+            margin-bottom: 20px;
+        }
+
+        .settings-section-title {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .settings-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .settings-item:last-child {
+            border-bottom: none;
+        }
+
+        .settings-item-title {
+            font-size: 1rem;
+        }
+
+        .settings-item-value {
+            color: var(--text-secondary);
+        }
+
+        .toggle-switch {
+            width: 44px;
+            height: 24px;
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .toggle-switch.active {
+            background-color: var(--accent-cyan);
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background-color: var(--text-muted);
+            border-radius: 50%;
+            transition: transform 0.2s;
+        }
+
+        .toggle-switch.active::after {
+            transform: translateX(20px);
+            background-color: var(--bg-primary);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .phone-mockup {
+                width: 300px;
+                height: 650px;
+            }
+            
+            .guide-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="mockup-container">
+        <!-- ============ SPLASH SCREEN ============ -->
+        <div class="section">
+            <h1>📱 Bike Fitting App - Cyberpunk UI Mockups</h1>
+            <p style="color: var(--text-secondary); margin-bottom: 20px;">
+                Poniżej znajdziesz <strong>interaktywne mockupy</strong> wszystkich ekranów aplikacji w stylu <strong>Cyberpunk</strong>.
+                Możesz kliknąć na elementy, aby zobaczyć ich zachowanie.
+            </p>
+            
+            <h2>🌌 Splash Screen</h2>
+            <div class="phone-mockup">
+                <div class="phone-screen">
+                    <div class="splash-content">
+                        <div class="splash-logo">🚴 BIKE FITTING</div>
+                        <div class="splash-subtitle">Optimize Your Ride</div>
+                        <div style="margin-top: 40px;">
+                            <div class="progress-container">
+                                <div class="progress-bar" style="width: 100%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============ WELCOME SCREEN ============ -->
+        <div class="section">
+            <h2>👋 Ekran Powitalny</h2>
+            <div class="phone-mockup">
+                <div class="phone-screen">
+                    <div class="status-bar">
+                        <div>20:30</div>
+                        <div class="status-bar-icons">
+                            <div class="status-bar-icon"></div>
+                            <div class="status-bar-icon"></div>
+                            <div class="status-bar-icon"></div>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 60px; margin-bottom: 40px;">
+                        <div style="font-size: 2rem; font-weight: bold; margin-bottom: 10px;" class="gradient-text">
+                            Witaj w Bike Fitting
+                        </div>
+                        <div style="color: var(--text-secondary); font-size: 1rem; margin-bottom: 30px;">
+                            Ustaw swój rower idealnie
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 30px;">
+                        <div class="card">
+                            <div class="card-title">Wybierz język</div>
+                            <div style="display: flex; gap: 10px;">
+                                <button class="btn btn-primary" style="flex: 1;">🇵🇱 Polski</button>
+                                <button class="btn btn-secondary" style="flex: 1;">🇬🇧 English</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary" style="width: 100%;">Start</button>
+                    
+                    <div class="bottom-nav">
+                        <div class="nav-item active">
+                            <div class="icon">📖</div>
+                            <div>Guide</div>
+                        </div>
+                        <div class="nav-item">
+                            <div class="icon">🧮</div>
+                            <div>Calculator</div>
+                        </div>
+                        <div class="nav-item">
+                            <div class="icon">📊</div>
+                            <div>History</div>
+                        </div>
+                        <div class="nav-item">
+                            <div class="icon">⚙️</div>
+                            <div>Settings</div>
+                        </div>
+                    </div>
+                    <div class="fab">🔍</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============ GUIDE SCREEN ============ -->
+        <div class="section">
+            <h2>📖 Guide  (Step by Step)</h2>
+            <div class="phone-mockup">
+                <div class="phone-screen">
+                    <div class="status-bar">
+                        <div>20:30</div>
+                        <div class="status-bar-icons">
+                            <div class="status-bar-icon"></div>
+                            <div class="status-bar-icon"></div>
+                            <div class="status-bar-icon"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="guide-header">
+                        <div style="font-size: 1.3rem; font-weight: bold; margin-bottom: 10px;">
+                            Guide Bike Fittingu
+                        </div>
+                        <div style="color: var(--text-secondary); font-size: 0.9rem;">
+                            7 kroków do idealnej pozycji
+                        </div>
+                        <div class="progress-container" style="margin-top: 15px;">
+                            <div class="progress-bar" style="width: 14%;"></div> <!-- 1/7 -->
+                        </div>
+                    </div>
+                    
+                    <div class="guide-grid">
+                        <div class="guide-card">
+                            <div class="guide-card-icon">📏</div>
+                            <div class="guide-card-title">Step 1: Saddle Height</div>
+                        </div>
+                        <div class="guide-card">
+                            <div class="guide-card-icon">🪑</div>
+                            <div class="guide-card-title">Step 2: Saddle Tilt</div>
+                        </div>
+                        <div class="guide-card">
+                            <div class="guide-card-icon">↔️</div>
+                            <div class="guide-card-title">Step 3: Fore-Aft Position</div>
+                        </div>
+                        <div class="guide-card">
+                            <div class="guide-card-icon">📐</div>
+                            <div class="guide-card-title">Step 4: Saddle-Handlebar Distance</div>
+                        </div>
+                        <div class="guide-card">
+                            <div class="guide-card-icon">⬆️</div>
+                            <div class="guide-card-title">Step 5: Handlebar Height</div>
+                        </div>
+                        <div class="guide-card">
+                            <div class="guide-card-icon">🎮</div>
+                            <div class="guide-card-title">Step 6: Cockpit Adjustment</div>
+                        </div>
+                        <div class="guide-card" style="opacity: 0.7;">
+                            <div class="guide-card-icon">👟</div>
+                            <div class="guide-card-title">Step 7: Cleat Positioning</div>
+                        </div>
+                    </div>
+                    
+                    <div class="bottom-nav">
+                        <div class="nav-item active">
+                            <div class="icon">📖</div>
+                            <div>Guide</div>
+                        </div>
+                        <div class="nav-item">
+                            <div class="icon">🧮</div>
+                            <div>Calculator</div>
+                        </div>
+                        <div class="nav-item">
+                            <div class="icon">📊</div>
+                            <div>History</div>
+                        </div>
+                        <div class="nav-item">
+                            <div class="icon">⚙️</div>
+                            <div>Settings</div>
+                        </div>
+                    </div>
+                    <div class="fab">🔍</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============ STEP DETAIL SCREEN ============ -->
+        <div class="section">
+            <h2>📝 Step Details (Step 1: Saddle Height)</h2>
+            <div class="phone-mockup">
+                <div class="phone-screen">
+                    <div class="status-bar">
+                        <div>20:30</div>
+                        <div class="status-bar-icons">
+                            <div class="status-bar-icon"></div>
+                            <div class="status-bar-icon"></div>
+                            <div class="status-bar-icon"></div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                            <button class="btn btn-ghost" style="width: 40px;">←</button>
+                            <div style="font-size: 1.3rem; font-weight: bold;">Step 1: Saddle Height</div>
+                        </div>
+                        <div class="step-indicator">
+                            <div class="step active">1</div>
+                            <div class="step">2</div>
+                            <div class="step">3</div>
+                            <div class="step">4</div>
+                            <div class="step">5</div>
+                            <div class="step">6</div>
+                            <div class="step">7</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-title">📏 Jak zmierzyć wysokość siodła?</div>
+                        <div style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin-bottom: 15px;">
+                            Ustaw siodło na wysokości, przy której Twoja noga jest <strong>prawie w pełni wyprostowana</strong> w dolnym punkcie pedału. 
+                            Użyj <strong>szablonu pomiarowego ①</strong> i <strong>poziomicy</strong> do precyzyjnego pomiaru.
+                        </div>
+                        <div style="text-align: center; margin-bottom: 15px;">
+                            <img src="https://via.placeholder.com/200x150/121217/00FFFF?text=Measurement+Illustration" 
+                                 style="border-radius: 8px; max-width: 100%;" alt="Ilustracja pomiaru wysokości siodła">
+                        </div>
+                        <div style="font-size: 0.9rem; color: var(--text-secondary);">
+                            <strong>Wskazówka ekspercka:</strong><br>
+                            "Zbyt niska wysokość siodła zwiększa obciążenie kolan, a zbyt wysoka powoduje niestabilność miednicy."
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-title">📊 Reference Table (Height - Saddle Height)</div>
+                        <div class="list-item">
+                            <div class="list-item-title">Height: 170 cm</div>
+                            <div class="list-item-value">720 mm</div>
+                        </div>
+                        <div class="list-item">
+                            <div class="list-item-title">Height: 180 cm</div>
+                            <div class="list-item-value">780 mm</div>
+                        </div>
+                        <div class="list-item">
+                            <div class="list-item-title">Height: 190 cm</div>
+                            <div class="list-item-value">840 mm</div>
+                        </div>
+                        <div style="text-align: center; margin-top: 15px;">
+                            <button class="btn btn-primary">Manual Measurement</button>
+                        </div>
+                        <div style="text-align: center; margin-top: 10px;">
+                            <button class="btn btn-secondary">AR Measurement 📷</button>
+                        </div>
+                    </div>
+                    
+                    <div class="bottom-nav">
+                        <div class="nav-item active">
+                            <div class="icon">📖</div>
+                            <div>Guide</div>
+                        </div>
+                        <div class="nav-item">
+                            <div class="icon">🧮</div>
+                            <div>Calculator</div>
+                        </div>
+                        <div class="nav-item">
+                            <div class="icon">📊</div>
+                            <div>History</div>
+                        </div>
+                        <div class="nav-item">
+                            <div class="icon">⚙️</div>
+                            <div>Settings</div>
+                        </div>
+                    </div>
+                    <div class="fab">🔍</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============ MANUAL MEASUREMENT SCREEN ============ -->
+        <div class="section">
+            <h2>📏 Manual Measurement</h2>
+            <div class="phone-mockup">
+                <div class="phone-screen">
+                    <div class="status-bar">
+                        <div>20:30</div>
+                        <div class="status-bar-icons">
+                            <div class="status-bar-icon"></div>
+                            <div class="status-bar-icon"></div>
+                            <div class="status-bar-icon"></div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <div style="font-size: 1.3rem; font-weight: bold; margin-bottom: 10px;">
+                            Manual Measurement
+                        </div>
+                        <div style="color: var(--text-secondary);">
+                            Wprowadź swoje dane
+                        </div>
+                    </div>
+                    
+                    <div class="measurement-form">
+                        <div class="input-group">
+                            <label class="input-label">Height (cm)</label>
+                            <input type="number" class="input-field" placeholder="np. 180">
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">Leg Length (inside leg, cm)</label>
+                            <input type="number" class="input-field" placeholder="np. 85">
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">Szerokość barków (cm)</label>
+                            <input type="number" class="input-field" placeholder="np. 42">
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">Bike Type</label>
+                            <select class="input-field" style="color: var(--text-primary);">
+                                <option value="">Wybierz typ roweru</option>
+                                <option value="gravel">🚵 Gravel</option>
+                                <option value="road">🏍️ Road</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">Aktualna wysokość siodła (mm)</label>
+                            <input type="number" class="input-field" placeholder="np. 720">
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">Aktualna wysokość kierownicy (mm)</label>
+                            <input type="number" class="input-field" placeholder="np. 680">
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <button class="btn btn-primary" style="width: 100%;">Oblicz Parametry</button>
+                    </div>
+                    
+                    <div class="bottom-nav">
+                        <div class="nav-item active">
+                            <div class="icon">📖</div>
+                            <div>Guide</div>
+                        </div>
+                        <div class="nav-item">
+                            <div class="icon">🧮</div>
+                            <div>Calculator</div>
+                        </div>
+                        <div class="nav-item">
+                            <div class="icon">📊</div>
+                            <div>History</div>
+                        </div>
+                        <div class="nav-item">
+                            <div class="icon">⚙️</div>
+                            <div>Settings</div>
+                        </div>
+                    </div>
+                    <div class="fab">🔍</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============ AR MEASUREMENT SCREEN ============ -->
+        <div class="section">
+            <h2>📷 AR Measurement (Augmented Reality)</h2>
+            <div class="phone-mockup">
+                <div class="phone-screen">
+                    <div class="status-bar">
+                        <div>20:30</div>
+                        <div class="status-bar-icons">
+                            <div class="status-bar-icon"></div>
+                            <div class="status-bar-icon"></div>
+                            <div class="status-bar-icon"></div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <div style="font-size: 1.3rem; font-weight: bold; margin-bottom: 10px;">
+                            AR Measurement
+                        </div>
+                        <div style="color: var(--text-secondary);">
+                            Skanuj swój rower
+                        </div>
+                    </div>
+                    
+                    <div class="ar-view">
+                        <div>📷 Włącz kamerę, aby rozpocząć skanowanie</div>
+                    </div>
+                    
+                    <div class="ar-instructions">
+                        <div style="color: var(--accent-cyan); font-weight: bold; margin-bottom: 10px;">
+                            Instructions:
+                        </div>
+                        <div class="ar-instruction">
+                            <div class="ar-instruction-number">1</div>
+                            <div>Ustaw rower na płaskiej powierzchni</div>
+                        </div>
+                        <div class="ar-instruction">
+                            <div class="ar-instruction-number">2</div>
+                            <div>Upewnij się, że cały rower jest widoczny</div>
+                        </div>
+                        <div class="ar-instruction">
+                            <div class="ar-instruction-number">3</div>
+                            <div>Skanuj z odległości ~1m</div>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <button class="btn btn-primary" style="width: 100%;">Start Skanowanie</button>
+                    </div>
+                    
+                    <div class="bottom-nav">
+                        <div class="nav-item active">
+                            <div class="icon">📖</div>
+                            <div>Guide</div>
+                        </div>
+                        <div class="nav-item">
+                            <div class="icon">🧮</div>
+                            <div>Calculator</div>
+                        </div>
+                        <div class="nav-item">
+                            <div class="icon">📊</div>
+                            <div>History</div>
+                        </div>
+                        <div class="nav-item">
+                            <div class="icon">⚙️</div>
+                            <div>Settings</div>
+                        </div>
+                    </div>
+                    <div class="fab">🔍</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============ RESULTS SCREEN ============ -->
+        <div class="section">
+            <h2>📊 Bike Fitting Results</h2>
+            <div class="phone-mockup">
+                <div class="phone-screen">
+                    <div class="status-bar">
+                        <div>20:30</div>
+                        <div class="status-bar-icons">
+                            <div class="status-bar-icon"></div>
+                            <div class="status-bar-icon"></div>
+                            <div class="status-bar-icon"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="results-header">
+                        <div style="font-size: 1.3rem; font-weight: bold; margin-bottom: 10px;">
+                            Results for Your Bike
+                        </div>
+                        <div style="color: var(--text-secondary);">
+                            Gravel Bike | 2026-08-01
+                        </div>
+                    </div>
+                    
+                    <div class="results-visualization">
+                        <div>📐 Schemat roweru z pomiarami (SVG)</div>
+                    </div>
+                    
+                    <div class="results-summary">
+                        <div style="font-size: 1.1rem; font-weight: bold; margin-bottom: 15px;">
+                            Podsumowanie
+                        </div>
+                        <div class="summary-grid">
+                            <div class="summary-card">
+                                <div class="summary-card-label">Wysokość Siodła</div>
+                                <div class="summary-card-value">720 mm</div>
+                            </div>
+                            <div class="summary-card">
+                                <div class="summary-card-label">Różnica Siodło-Kierownica</div>
+                                <div class="summary-card-value">50 mm</div>
+                            </div>
+                            <div class="summary-card">
+                                <div class="summary-card-label">Odległość Siodło-Kierownica</div>
+                                <div class="summary-card-value">540 mm</div>
+                            </div>
+                            <div class="summary-card">
+                                <div class="summary-card-label">Nachylenie Siodła</div>
+                                <div class="summary-card-value">0°</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-title">🎯 Recommendations</div>
+                        <div class="list-item">
+                            <div class="list-item-title">Wysokość Siodła</div>
+                            <div class="list-item-value" style="color: var(--success);">✅ Optymalne</div>
+                        </div>
+                        <div class="list-item">
+                            <div class="list-item-title">Różnica Siodło-Kierownica</div>
+                            <div class="list-item-value" style="color: var(--error);">⚠️ Zmień na 55mm</div>
+                        </div>
+                        <div class="list-item">
+                            <div class="list-item-title">Odległość Siodło-Kierownica</div>
+                            <div class="list-item-value" style="color: var(--success);">✅ Optymalne</div>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <button class="btn btn-primary" style="width: 100%; margin-bottom: 10px;">
+                            📄 Eksportuj Raport PDF
+                        </button>
+                        <button class="btn btn-secondary" style="width: 100%;">
+                            🔄 Save i Kontynuuj
+                        </button>
+                    </div>
+                    
+                    <div class="bottom-nav">
+                        <div class="nav-item">
+                            <div class="icon">📖</div>
+                            <div>Guide</div>
+                        </div>
+                        <div class="nav-item active">
+                            <div class="icon">🧮</div>
+                            <div>Calculator</div>
+                        </div>
+                        <div class="nav-item">
+                            <div class="icon">📊</div>
+                            <div>History</div>
+                        </div>
+                        <div class="nav-item">
+                            <div class="icon">⚙️</div>
+                            <div>Settings</div>
+                        </div>
+                    </div>
+                    <div class="fab">🔍</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============ HISTORY SCREEN ============ -->
+        <div class="section">
+            <h2>📊 History Pomiary</h2>
+            <div class="phone-mockup">
+                <div class="phone-screen">
+                    <div class="status-bar">
+                        <div>20:30</div>
+                        <div class="status-bar-icons">
+                            <div class="status-bar-icon"></div>
+                            <div class="status-bar-icon"></div>
+                            <div class="status-bar-icon"></div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <div style="font-size: 1.3rem; font-weight: bold; margin-bottom: 10px;">
+                            History Pomiary
+                        </div>
+                        <div style="color: var(--text-secondary);">
+                            3 zapisanych sesji
+                        </div>
+                    </div>
+                    
+                    <div class="history-list">
+                        <div class="history-item">
+                            <div class="history-item-header">
+                                <div class="history-item-date">2026-08-01</div>
+                                <div class="history-item-bike">Gravel Bike</div>
+                            </div>
+                            <div class="history-item-details">
+                                <div class="history-item-detail">
+                                    <div class="history-item-detail-label">Wysokość Siodła</div>
+                                    <div class="history-item-detail-value">720 mm</div>
+                                </div>
+                                <div class="history-item-detail">
+                                    <div class="history-item-detail-label">Różnica</div>
+                                    <div class="history-item-detail-value">50 mm</div>
+                                </div>
+                                <div class="history-item-detail">
+                                    <div class="history-item-detail-label">Odległość</div>
+                                    <div class="history-item-detail-value">540 mm</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="history-item">
+                            <div class="history-item-header">
+                                <div class="history-item-date">2026-07-25</div>
+                                <div class="history-item-bike">Road Bike</div>
+                            </div>
+                            <div class="history-item-details">
+                                <div class="history-item-detail">
+                                    <div class="history-item-detail-label">Wysokość Siodła</div>
+                                    <div class="history-item-detail-value">710 mm</div>
+                                </div>
+                                <div class="history-item-detail">
+                                    <div class="history-item-detail-label">Różnica</div>
+                                    <div class="history-item-detail-value">45 mm</div>
+                                </div>
+                                <div class="history-item-detail">
+                                    <div class="history-item-detail-label">Odległość</div>
+                                    <div class="history-item-detail-value">530 mm</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="history-item">
+                            <div class="history-item-header">
+                                <div class="history-item-date">2026-07-15</div>
+                                <div class="history-item-bike">Gravel Bike</div>
+                            </div>
+                            <div class="history-item-details">
+                                <div class="history-item-detail">
+                                    <div class="history-item-detail-label">Wysokość Siodła</div>
+                                    <div class="history-item-detail-value">700 mm</div>
+                                </div>
+                                <div class="history-item-detail">
+                                    <div class="history-item-detail-label">Różnica</div>
+                                    <div class="history-item-detail-value">40 mm</div>
+                                </div>
+                                <div class="history-item-detail">
+                                    <div class="history-item-detail-label">Odległość</div>
+                                    <div class="history-item-detail-value">520 mm</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <button class="btn btn-ghost" style="width: 100%;">
+                            🗑️ Usuń Wszystkie
+                        </button>
+                    </div>
+                    
+                    <div class="bottom-nav">
+                        <div class="nav-item">
+                            <div class="icon">📖</div>
+                            <div>Guide</div>
+                        </div>
+                        <div class="nav-item">
+                            <div class="icon">🧮</div>
+                            <div>Calculator</div>
+                        </div>
+                        <div class="nav-item active">
+                            <div class="icon">📊</div>
+                            <div>History</div>
+                        </div>
+                        <div class="nav-item">
+                            <div class="icon">⚙️</div>
+                            <div>Settings</div>
+                        </div>
+                    </div>
+                    <div class="fab">🔍</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============ SETTINGS SCREEN ============ -->
+        <div class="section">
+            <h2>⚙️ Settings</h2>
+            <div class="phone-mockup">
+                <div class="phone-screen">
+                    <div class="status-bar">
+                        <div>20:30</div>
+                        <div class="status-bar-icons">
+                            <div class="status-bar-icon"></div>
+                            <div class="status-bar-icon"></div>
+                            <div class="status-bar-icon"></div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <div style="font-size: 1.3rem; font-weight: bold;">
+                            Settings
+                        </div>
+                    </div>
+                    
+                    <div class="settings-section">
+                        <div class="settings-section-title">Język</div>
+                        <div class="settings-item">
+                            <div class="settings-item-title">Język Aplikacji</div>
+                            <div class="settings-item-value">Polski</div>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-section">
+                        <div class="settings-section-title">Wygląd</div>
+                        <div class="settings-item">
+                            <div class="settings-item-title">Tryb Ciemny</div>
+                            <div class="toggle-switch active"></div>
+                        </div>
+                        <div class="settings-item">
+                            <div class="settings-item-title">Jednostki</div>
+                            <div class="settings-item-value">Metryczne (cm/mm)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-section">
+                        <div class="settings-section-title">Dźwięk</div>
+                        <div class="settings-item">
+                            <div class="settings-item-title">Dźwięki Aplikacji</div>
+                            <div class="toggle-switch active"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-section">
+                        <div class="settings-section-title">Pomiary</div>
+                        <div class="settings-item">
+                            <div class="settings-item-title">Precyzja Pomiarów</div>
+                            <div class="settings-item-value">5/10</div>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-section">
+                        <div class="settings-section-title">Informacje</div>
+                        <div class="settings-item">
+                            <div class="settings-item-title">Wersja Aplikacji</div>
+                            <div class="settings-item-value">1.0.0</div>
+                        </div>
+                        <div class="settings-item">
+                            <div class="settings-item-title">Polityka Prywatności</div>
+                            <div class="settings-item-value"></div>
+                        </div>
+                        <div class="settings-item">
+                            <div class="settings-item-title">O Aplikacji</div>
+                            <div class="settings-item-value"></div>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button class="btn btn-ghost" style="color: var(--error);">
+                            Wyloguj się
+                        </button>
+                    </div>
+                    
+                    <div class="bottom-nav">
+                        <div class="nav-item">
+                            <div class="icon">📖</div>
+                            <div>Guide</div>
+                        </div>
+                        <div class="nav-item">
+                            <div class="icon">🧮</div>
+                            <div>Calculator</div>
+                        </div>
+                        <div class="nav-item">
+                            <div class="icon">📊</div>
+                            <div>History</div>
+                        </div>
+                        <div class="nav-item active">
+                            <div class="icon">⚙️</div>
+                            <div>Settings</div>
+                        </div>
+                    </div>
+                    <div class="fab">🔍</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============ FAB ACTION ============ -->
+        <div class="section">
+            <h2>🎯 Floating Action Button (FAB) - Akcje</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 20px;">
+                FAB służy do **szybkiego dostępu** do głównej akcji (np. rozpoczęcie pomiaru).
+                Po kliknięciu FAB-a, pojawia się **menu szybkich akcji**:
+            </p>
+            <div class="phone-mockup">
+                <div class="phone-screen">
+                    <div class="status-bar">
+                        <div>20:30</div>
+                        <div class="status-bar-icons">
+                            <div class="status-bar-icon"></div>
+                            <div class="status-bar-icon"></div>
+                            <div class="status-bar-icon"></div>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 100px;">
+                        <div style="font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 40px;">
+                            Kliknij FAB, aby rozpocząć
+                        </div>
+                        <div class="fab">🔍</div>
+                    </div>
+                    
+                    <!-- FAB Menu (Expanded) -->
+                    <div style="position: absolute; bottom: 80px; right: 20px; display: flex; flex-direction: column; gap: 10px;">
+                        <div style="width: 48px; height: 48px; background-color: var(--bg-card); border-radius: 8px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border);">
+                            <span>📏</span>
+                        </div>
+                        <div style="width: 48px; height: 48px; background-color: var(--bg-card); border-radius: 8px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border);">
+                            <span>📷</span>
+                        </div>
+                        <div style="width: 48px; height: 48px; background-color: var(--bg-card); border-radius: 8px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border);">
+                            <span>📊</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bottom-nav">
+                        <div class="nav-item active">
+                            <div class="icon">📖</div>
+                            <div>Guide</div>
+                        </div>
+                        <div class="nav-item">
+                            <div class="icon">🧮</div>
+                            <div>Calculator</div>
+                        </div>
+                        <div class="nav-item">
+                            <div class="icon">📊</div>
+                            <div>History</div>
+                        </div>
+                        <div class="nav-item">
+                            <div class="icon">⚙️</div>
+                            <div>Settings</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============ COLOR PALETTE ============ -->
+        <div class="section">
+            <h2>🎨 Paleta Kolorów (Cyberpunk)</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px;">
+                <div class="card">
+                    <div class="card-title">Primary Background</div>
+                    <div style="width: 100%; height: 50px; background-color: var(--bg-primary); border-radius: 8px; margin-bottom: 8px;"></div>
+                    <div class="card-subtitle">#0A0A0F</div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Secondary Background</div>
+                    <div style="width: 100%; height: 50px; background-color: var(--bg-secondary); border-radius: 8px; margin-bottom: 8px;"></div>
+                    <div class="card-subtitle">#121217</div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Card Background</div>
+                    <div style="width: 100%; height: 50px; background-color: var(--bg-card); border-radius: 8px; margin-bottom: 8px;"></div>
+                    <div class="card-subtitle">#1E1E24</div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Accent Cyan</div>
+                    <div style="width: 100%; height: 50px; background-color: var(--accent-cyan); border-radius: 8px; margin-bottom: 8px;"></div>
+                    <div class="card-subtitle">#00FFFF</div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Accent Magenta</div>
+                    <div style="width: 100%; height: 50px; background-color: var(--accent-magenta); border-radius: 8px; margin-bottom: 8px;"></div>
+                    <div class="card-subtitle">#FF00FF</div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Success</div>
+                    <div style="width: 100%; height: 50px; background-color: var(--success); border-radius: 8px; margin-bottom: 8px;"></div>
+                    <div class="card-subtitle">#00FF88</div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Error</div>
+                    <div style="width: 100%; height: 50px; background-color: var(--error); border-radius: 8px; margin-bottom: 8px;"></div>
+                    <div class="card-subtitle">#FF4444</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============ TYPOGRAPHY ============ -->
+        <div class="section">
+            <h2>🔤 Typografia</h2>
+            <div class="card">
+                <div class="card-title">Roboto (Główna Czcionka)</div>
+                <div style="margin-bottom: 15px;">
+                    <div style="font-size: 2rem; font-weight: bold; margin-bottom: 5px;">Nagłówek H1 (24sp)</div>
+                    <div style="font-size: 1.5rem; font-weight: 600; margin-bottom: 5px;">Nagłówek H2 (18sp)</div>
+                    <div style="font-size: 1.1rem; margin-bottom: 5px;">Tekst główny (14sp)</div>
+                    <div style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 5px;">Tekst wtórny (12sp)</div>
+                    <div style="font-family: 'Courier New', monospace; font-size: 1rem; color: var(--text-muted);">Kod (JetBrains Mono, 12sp)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============ ICONS ============ -->
+        <div class="section">
+            <h2>🎭 Ikony (Material Icons z Efektem Glow)</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px;">
+                <div class="card" style="text-align: center;">
+                    <div style="font-size: 2rem; margin-bottom: 8px;" class="gradient-text">📖</div>
+                    <div>Guide</div>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <div style="font-size: 2rem; margin-bottom: 8px;" class="gradient-text">🧮</div>
+                    <div>Calculator</div>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <div style="font-size: 2rem; margin-bottom: 8px;" class="gradient-text">📊</div>
+                    <div>History</div>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <div style="font-size: 2rem; margin-bottom: 8px;" class="gradient-text">⚙️</div>
+                    <div>Settings</div>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <div style="font-size: 2rem; margin-bottom: 8px;" class="gradient-text">🔍</div>
+                    <div>Pomiar</div>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <div style="font-size: 2rem; margin-bottom: 8px;" class="gradient-text">📏</div>
+                    <div>Manual Measurement</div>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <div style="font-size: 2rem; margin-bottom: 8px;" class="gradient-text">📷</div>
+                    <div>AR Measurement</div>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <div style="font-size: 2rem; margin-bottom: 8px;" class="gradient-text">📄</div>
+                    <div>Export PDF</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" style="text-align: center; margin-top: 40px;">
+            <h2>🎉 To wszystko!</h2>
+            <p style="color: var(--text-secondary);">
+                Powyższe mockupy przedstawiają **kompletny interfejs** aplikacji *Bike Fitting App* w stylu **Cyberpunk**.<br>
+                Możesz je **skopiować do Figmy** lub **użyć jako referencji** przy implementacji w Jetpack Compose.
+            </p>
+            <p style="color: var(--text-muted); margin-top: 20px;">
+                <strong>Stay safe on the Net, Netrunnerze.</strong> 🚴‍♂️💻
+            </p>
+        </div>
+    </div>
+</body>
+</html>
