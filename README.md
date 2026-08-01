@@ -195,8 +195,7 @@ optibike/
 │   ├── assets/                          # Static assets (logos, etc.)
 │   │   ├── optibike_logo_1.svg          # Logo Concept 1: "O" + Bike (minimalist)
 │   │   ├── optibike_logo_2.svg          # Logo Concept 2: OptiBike Wordmark
-│   │   ├── optibike_logo_3.svg          # Logo Concept 3: Hexagonal
-│   │   └── res-drawable-optibike_logo.xml # Android Vector Asset (app icon)
+│   │   └── optibike_logo_3.svg          # Logo Concept 3: Hexagonal
 │   └── src/
 │       └── main/
 │           ├── java/com/void/bikefitting/ # Kotlin source code
@@ -272,6 +271,7 @@ optibike/
 │           │   └── MainActivity.kt     # App Entry Point
 │           └── res/                   # Android Resources
 │               ├── drawable/          # Images & Icons
+│               │   ├── res-drawable-optibike_logo.xml # Android Vector Asset (app icon)
 │               │   ├── ic_launcher.xml
 │               │   ├── ic_guide.xml
 │               │   ├── ic_calculator.xml
@@ -540,9 +540,8 @@ class ManualMeasurementScreenTest {
 ### **🔹 Manual Testing**
 
 **Test Devices:**
-- Google Pixel 7 Pro (Android 17, ARCore ✅)
-- Samsung Galaxy S23 (Android 17, ARCore ✅)
-- Xiaomi Redmi Note 12 (Android 17, ARCore ❌)
+- Google Pixel 10 Pro (Android 17, ARCore ✅)
+- Samsung Galaxy S25 (Android 17, ARCore ✅)
 
 **Test Scenarios:**
 1. **Onboarding Flow:** Language selection → Guide
