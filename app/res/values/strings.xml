@@ -25,30 +25,42 @@
     <string name="step_1_title">Step 1: Saddle Height</string>
     <string name="step_1_description">Set the optimal saddle height based on your height, leg length, and bike type. Use a measurement template and level for precise results.</string>
     <string name="step_1_tip">Too low saddle height increases knee strain, while too high causes pelvis instability.</string>
+    <string name="step_1_short">Saddle Height</string>
 
     <string name="step_2_title">Step 2: Saddle Tilt</string>
     <string name="step_2_description">Adjust the saddle angle using a template and level. This affects perineal pressure and hand/neck comfort.</string>
     <string name="step_2_tip">0° (horizontal) is ideal for most riders. +1° forward for aggressive posture, -1° backward for upright posture.</string>
+    <string name="step_2_short">Saddle Tilt</string>
 
     <string name="step_3_title">Step 3: Fore-Aft Position</string>
     <string name="step_3_description">Set the saddle position on the horizontal axis (front/back). Depends on frame geometry and riding style.</string>
     <string name="step_3_tip">Affects power transfer and comfort. Adjust based on your riding preferences.</string>
+    <string name="step_3_short">Fore-Aft Position</string>
 
     <string name="step_4_title">Step 4: Saddle-Handlebar Distance</string>
     <string name="step_4_description">Measure the sitting length (distance between saddle and handlebar). Considers frame reach length.</string>
     <string name="step_4_tip">For gravel bikes, consider -5mm for better comfort on technical terrain.</string>
+    <string name="step_4_short">Saddle-Handlebar Distance</string>
 
     <string name="step_5_title">Step 5: Handlebar Height</string>
     <string name="step_5_description">Calculate the height difference between saddle and handlebar using the formula: A-B=C.</string>
     <string name="step_5_tip">Use the reference table for optimal values based on your height.</string>
+    <string name="step_5_short">Handlebar Height</string>
 
     <string name="step_6_title">Step 6: Cockpit Adjustment</string>
     <string name="step_6_description">Set handlebar width (≈ shoulder width), hood angle, and brake/gear lever position.</string>
     <string name="step_6_tip">For aerodynamics: -2cm from shoulder width. For comfort: +2cm.</string>
+    <string name="step_6_short">Cockpit Adjustment</string>
 
     <string name="step_7_title">Step 7: Cleat Positioning</string>
     <string name="step_7_description">Set the power axis (metatarsophalangeal joint) over the pedal axis for optimal power transfer.</string>
     <string name="step_7_tip">Correct cleat position prevents knee pain and improves pedaling efficiency.</string>
+    <string name="step_7_short">Cleat Positioning</string>
+
+    <!-- Step Labels -->
+    <string name="step_description_label">Description</string>
+    <string name="step_tip_label">Expert Tip</string>
+    <string name="step_required_measurements">Required Measurements</string>
 
     <!-- Measurement -->
     <string name="measurement_title">Measurements</string>
@@ -65,6 +77,8 @@
     <string name="form_bike_type_gravel">Gravel</string>
     <string name="form_bike_type_road">Road</string>
     <string name="form_saddle_height">Current Saddle Height (mm)</string>
+    <string name="form_frame_size">Frame Size (cm)</string>
+    <string name="form_crank_length">Crank Length (mm)</string>
     <string name="form_handlebar_height">Current Handlebar Height (mm)</string>
     <string name="form_saddle_type">Saddle Type</string>
     <string name="form_handlebar_type">Handlebar Type</string>
