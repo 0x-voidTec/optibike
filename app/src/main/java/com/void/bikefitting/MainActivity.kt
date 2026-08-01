@@ -4,10 +4,13 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
+import com.void.bikefitting.presentation.components.BottomNavigationBar
 import com.void.bikefitting.presentation.navigation.AppNavHost
 import com.void.bikefitting.presentation.theme.OptiBikeTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,7 +34,18 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-                    AppNavHost(navController = navController)
+                    
+                    Scaffold(
+                        bottomBar = {
+                            BottomNavigationBar(navController = navController)
+                        },
+                        modifier = Modifier.fillMaxSize()
+                    ) { paddingValues ->
+                        AppNavHost(
+                            navController = navController,
+                            modifier = Modifier.padding(paddingValues)
+                        )
+                    }
                 }
             }
         }

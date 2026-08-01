@@ -7,6 +7,12 @@ package com.void.bikefitting.presentation.navigation
  * @author Vibe Code (AI Agent)
  * @since 1.0.0
  */
+data class BottomNavItem(
+    val route: String,
+    val titleResId: Int,
+    val iconResId: Int
+)
+
 object Destinations {
     // Splash and Onboarding
     const val SPLASH = "splash"
@@ -23,6 +29,14 @@ object Destinations {
     const val HISTORY = "history"
     const val SETTINGS = "settings"
     const val PDF_EXPORT = "pdf_export"
+    
+    // Bottom Navigation Items
+    val BOTTOM_NAV_ITEMS = listOf(
+        BottomNavItem(GUIDE, R.string.nav_guide, com.void.bikefitting.R.drawable.ic_guide),
+        BottomNavItem(CALCULATOR, R.string.nav_calculator, com.void.bikefitting.R.drawable.ic_calculator),
+        BottomNavItem(HISTORY, R.string.nav_history, com.void.bikefitting.R.drawable.ic_history),
+        BottomNavItem(SETTINGS, R.string.nav_settings, com.void.bikefitting.R.drawable.ic_settings)
+    )
     
     // Step Detail Arguments
     fun getStepDetailRoute(stepId: Int): String {
