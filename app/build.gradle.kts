@@ -16,7 +16,7 @@ android {
 
     defaultConfig {
         applicationId = "com.void.bikefitting"
-        minSdk = 24  // Minimum for Room, Compose, and most features
+        minSdk = 26  // Required for Apache PDFBox 3.0.0 (MethodHandle support)
         targetSdk = 34
         versionCode = 1
         versionName = "1.0.0"
