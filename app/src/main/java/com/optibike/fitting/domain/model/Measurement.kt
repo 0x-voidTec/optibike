@@ -12,6 +12,7 @@ import java.time.LocalDateTime
 data class Measurement(
     val id: Long = 0,
     val userId: String = "default", // For future multi-user support
+    val bikeId: Long? = null,
     val bikeType: BikeType = BikeType.ROAD,
     val height: Double? = null, // cm
     val inseam: Double? = null, // cm

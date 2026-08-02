@@ -108,7 +108,7 @@ fun HistoryScreen(
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = "Loading measurements...",
+                    text = stringResource(id = R.string.loading_latest),
                     color = OptiBikeColors.TextSecondary,
                     fontSize = 16.sp
                 )

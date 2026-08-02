@@ -3,8 +3,11 @@ package com.optibike.fitting.di
 import android.content.Context
 import androidx.room.Room
 import com.optibike.fitting.data.BikeFittingDatabase
+import com.optibike.fitting.data.local.dao.BikeDao
 import com.optibike.fitting.data.local.dao.MeasurementDao
+import com.optibike.fitting.data.repository.BikeRepositoryImpl
 import com.optibike.fitting.data.repository.MeasurementRepositoryImpl
+import com.optibike.fitting.domain.repository.BikeRepository
 import com.optibike.fitting.domain.repository.MeasurementRepository
 import dagger.Module
 import dagger.Provides
@@ -39,6 +42,14 @@ object AppModule {
     ): MeasurementDao {
         return database.measurementDao()
     }
+
+    @Provides
+    @Singleton
+    fun provideBikeDao(
+        database: BikeFittingDatabase
+    ): BikeDao {
+        return database.bikeDao()
+    }
     
     @Provides
     @Singleton
@@ -46,5 +57,13 @@ object AppModule {
         measurementDao: MeasurementDao
     ): MeasurementRepository {
         return MeasurementRepositoryImpl(measurementDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideBikeRepository(
+        bikeDao: BikeDao
+    ): BikeRepository {
+        return BikeRepositoryImpl(bikeDao)
     }
 }

@@ -31,6 +31,11 @@ interface MeasurementRepository {
      * Get measurements for a specific user
      */
     fun getMeasurementsByUser(userId: String): Flow<List<Measurement>>
+
+    /**
+     * Get measurements for a specific bike
+     */
+    fun getMeasurementsByBike(bikeId: Long): Flow<List<Measurement>>
     
     /**
      * Update an existing measurement

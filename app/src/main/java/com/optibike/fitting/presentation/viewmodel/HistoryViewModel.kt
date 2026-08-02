@@ -46,12 +46,12 @@ class HistoryViewModel @Inject constructor(
             _error.value = null
             try {
                 measurementRepository.getAllMeasurements()
-                    .collectLatest { measurements ->
+                    .collect { measurements ->
                         _measurements.value = measurements
+                        _isLoading.value = false
                     }
             } catch (e: Exception) {
                 _error.value = "Error loading measurements: ${e.message}"
-            } finally {
                 _isLoading.value = false
             }
         }

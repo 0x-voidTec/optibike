@@ -1,6 +1,7 @@
 package com.optibike.fitting
 
 import android.app.Application
+import com.tom_roush.pdfbox.android.PDFBoxResourceLoader
 import dagger.hilt.android.HiltAndroidApp
 
 /**
@@ -14,7 +15,7 @@ import dagger.hilt.android.HiltAndroidApp
 class OptiBikeApp : Application() {
     override fun onCreate() {
         super.onCreate()
-        // Initialize any app-wide configurations here
-        // Hilt will automatically inject dependencies
+        // Initialize PDFBox for Android
+        com.tom_roush.pdfbox.android.PDFBoxResourceLoader.init(this)
     }
 }

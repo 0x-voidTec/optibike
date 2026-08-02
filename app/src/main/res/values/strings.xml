@@ -22,6 +22,7 @@
     <string name="guide_subtitle">Follow these 7 steps to optimize your bike position</string>
 
     <!-- Steps -->
+    <string name="step_label">Step %1$d</string>
     <string name="step_1_title">Step 1: Saddle Height</string>
     <string name="step_1_description">Set the optimal saddle height based on your height, leg length, and bike type. Use a measurement template and level for precise results.</string>
     <string name="step_1_tip">Too low saddle height increases knee strain, while too high causes pelvis instability.</string>
@@ -86,6 +87,7 @@
     <string name="form_handlebar_type">Handlebar Type</string>
     <string name="form_shoe_size">Shoe Size (EU)</string>
     <string name="form_pedal_type">Pedal Type</string>
+    <string name="optional_measurements">Optional Measurements</string>
 
     <!-- Buttons -->
     <string name="btn_start">Start</string>
@@ -98,11 +100,18 @@
     <string name="btn_start_scanning">Start Scanning</string>
     <string name="btn_manual_measurement">Manual Measurement</string>
     <string name="btn_ar_measurement">AR Measurement</string>
+    <string name="btn_save_to_history">Save to History</string>
+    <string name="btn_new_measurement">New Measurement</string>
+
+    <!-- Calculator -->
+    <string name="calculator_subtitle">Calculate your optimal bike fitting parameters</string>
+    <string name="loading_latest">Loading latest measurement...</string>
 
     <!-- Results -->
     <string name="results_title">Bike Fitting Results</string>
     <string name="results_subtitle">Here are your optimized bike fitting parameters</string>
-    <string name="results_summary">Summary for Your Bike</string>
+    <string name="results_title_card">Your Bike Fitting Results</string>
+    <string name="results_summary">Summary</string>
     <string name="results_recommendations">Recommendations</string>
     <string name="results_current_values">Current Values</string>
     <string name="results_recommended_values">Recommended Values</string>
@@ -112,12 +121,14 @@
     <string name="results_saddle_handlebar_distance">Saddle-Handlebar Distance</string>
     <string name="results_cockpit">Cockpit Adjustment</string>
     <string name="results_cleat_position">Cleat Position</string>
-
-    <!-- Reference Tables -->
-    <string name="table_saddle_height_title">Reference Table (Height → Saddle Height)</string>
-    <string name="table_height">Height (cm)</string>
-    <string name="table_road">Road (mm)</string>
-    <string name="table_gravel">Gravel (mm)</string>
+    <string name="results_no_results">No results available. Please calculate parameters first.</string>
+    <string name="results_detailed_parameters">Detailed Parameters</string>
+    <string name="results_saddle_fore_aft">Saddle Fore-Aft Position</string>
+    <string name="results_saddle_fore_aft_desc">Position relative to bottom bracket</string>
+    <string name="results_saddle_handlebar_distance_desc">Distance between saddle and handlebar</string>
+    <string name="results_handlebar_width">Handlebar Width</string>
+    <string name="results_handlebar_width_desc">Recommended handlebar width</string>
+    <string name="results_cleat_position_desc">Position from pedal axis</string>
 
     <!-- History -->
     <string name="history_title">Measurement History</string>
@@ -141,6 +152,12 @@
     <string name="settings_about">About</string>
     <string name="settings_version">Version</string>
     <string name="settings_privacy_policy">Privacy Policy</string>
+    <string name="settings_section_general">General</string>
+    <string name="settings_section_display">Display</string>
+    <string name="settings_section_measurement">Measurement</string>
+    <string name="settings_section_about">About</string>
+    <string name="settings_precision_decimal_places">%1$d decimal places</string>
+    <string name="settings_copyright">© 2026 0x-void Dev Team</string>
 
     <!-- AR Measurement -->
     <string name="ar_title">AR Measurement</string>
@@ -192,4 +209,9 @@
     <string name="about_version">Version %s</string>
     <string name="about_author">0x-void Dev Team</string>
     <string name="about_website">https://0x-void.tech</string>
+    <string name="rec_saddle_increase">Increase saddle height by %1$dmm</string>
+    <string name="rec_saddle_decrease">Decrease saddle height by %1$dmm</string>
+    <string name="rec_handlebar_increase">Raise handlebar by %1$dmm</string>
+    <string name="rec_handlebar_decrease">Lower handlebar by %1$dmm</string>
+    <string name="rec_gravel_general">For gravel bikes, consider a slightly lower saddle height for better control</string>
 </resources>

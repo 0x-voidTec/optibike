@@ -22,33 +22,46 @@
     <string name="guide_subtitle">Postępuj zgodnie z tymi 7 krokami, aby zoptymalizować swoją pozycję na rowerze</string>
 
     <!-- Steps -->
+    <string name="step_label">Krok %1$d</string>
     <string name="step_1_title">Krok 1: Wysokość siodła</string>
     <string name="step_1_description">Ustaw optymalną wysokość siodła na podstawie wzrostu, długości nogi i typu roweru. Użyj szablonu pomiarowego i poziomicy dla precyzyjnych wyników.</string>
     <string name="step_1_tip">Zbyt niska wysokość siodła zwiększa obciążenie kolan, a zbyt wysoka powoduje niestabilność miednicy.</string>
+    <string name="step_1_short">Wysokość siodła</string>
 
     <string name="step_2_title">Krok 2: Nachylenie siodła</string>
     <string name="step_2_description">Dostosuj kąt siodła za pomocą szablonu i poziomicy. Wpływa na ciśnienie na krocze i komfort rąk/szyi.</string>
     <string name="step_2_tip">0° (poziomo) jest idealne dla większości rowerzystów. +1° (przód) dla agresywnej postawy, -1° (tył) dla wyprostownia.</string>
+    <string name="step_2_short">Nachylenie siodła</string>
 
     <string name="step_3_title">Krok 3: Pozioma regulacja siodła</string>
     <string name="step_3_description">Ustaw siodło w osi poziomej (przód/tył). Zależy od geometrii ramy i stylu jazdy.</string>
     <string name="step_3_tip">Wpływa na przenoszenie mocy i komfort. Dostosuj zgodnie z preferencjami jazdy.</string>
+    <string name="step_3_short">Pozycja przód-tył</string>
 
     <string name="step_4_title">Krok 4: Odległość siodło-kierownica</string>
     <string name="step_4_description">Pomiar sitting length (odległości między siodłem a kierownicą). Uwzględnia długość ramy (reach).</string>
     <string name="step_4_tip">Dla rowerów gravel rozważ -5mm dla lepszego komfortu na technicznych terenach.</string>
+    <string name="step_4_short">Odległość siodło-kierownica</string>
 
     <string name="step_5_title">Krok 5: Wysokość kierownicy</string>
     <string name="step_5_description">Oblicz różnicę wysokości między siodłem a kierownicą za pomocą wzoru: A-B=C.</string>
     <string name="step_5_tip">Użyj tabeli referencyjnej dla optymalnych wartości na podstawie wzrostu.</string>
+    <string name="step_5_short">Wysokość kierownicy</string>
 
     <string name="step_6_title">Krok 6: Regulacja kokpitu</string>
     <string name="step_6_description">Ustaw szerokość kierownicy (≈ szerokość barków), kąt hoodów i pozycję dźwigni hamulca/przerzutek.</string>
     <string name="step_6_tip">Dla aerodynamiki: -2cm od szerokości barków. Dla komfortu: +2cm.</string>
+    <string name="step_6_short">Regulacja kokpitu</string>
 
     <string name="step_7_title">Krok 7: Pozycjonowanie butów</string>
     <string name="step_7_description">Ustaw oś siły (metatarsophalangeal joint) nad osią pedału dla optymalnego przeniesienia mocy.</string>
     <string name="step_7_tip">Prawidłowa pozycja butów zapobiega bólowi kolan i poprawia wydajność pedałowania.</string>
+    <string name="step_7_short">Pozycja bloków</string>
+
+    <!-- Step Labels -->
+    <string name="step_description_label">Opis</string>
+    <string name="step_tip_label">Wskazówka eksperta</string>
+    <string name="step_required_measurements">Wymagane pomiary</string>
 
     <!-- Measurement -->
     <string name="measurement_title">Pomiary</string>
@@ -67,11 +80,14 @@
     <string name="form_bike_type_gravel">Gravel</string>
     <string name="form_bike_type_road">Road</string>
     <string name="form_saddle_height">Aktualna wysokość siodła (mm)</string>
+    <string name="form_frame_size">Rozmiar ramy (cm)</string>
+    <string name="form_crank_length">Długość korby (mm)</string>
     <string name="form_handlebar_height">Aktualna wysokość kierownicy (mm)</string>
     <string name="form_saddle_type">Typ siodła</string>
     <string name="form_handlebar_type">Typ kierownicy</string>
     <string name="form_shoe_size">Rozmiar buta (EU)</string>
     <string name="form_pedal_type">Typ pedałów</string>
+    <string name="optional_measurements">Pomiary opcjonalne</string>
 
     <!-- Buttons -->
     <string name="btn_start">Rozpocznij</string>
@@ -84,11 +100,18 @@
     <string name="btn_start_scanning">Rozpocznij skanowanie</string>
     <string name="btn_manual_measurement">Pomiar manualny</string>
     <string name="btn_ar_measurement">Pomiar AR</string>
+    <string name="btn_save_to_history">Zapisz w historii</string>
+    <string name="btn_new_measurement">Nowy pomiar</string>
+
+    <!-- Calculator -->
+    <string name="calculator_subtitle">Oblicz optymalne parametry Twojego roweru</string>
+    <string name="loading_latest">Wczytywanie ostatniego pomiaru...</string>
 
     <!-- Results -->
     <string name="results_title">Wyniki Bike Fittingu</string>
     <string name="results_subtitle">Oto zoptymalizowane parametry Twojego roweru</string>
-    <string name="results_summary">Podsumowanie dla Twojego roweru</string>
+    <string name="results_title_card">Twoje wyniki Bike Fittingu</string>
+    <string name="results_summary">Podsumowanie</string>
     <string name="results_recommendations">Zalecenia</string>
     <string name="results_current_values">Aktualne wartości</string>
     <string name="results_recommended_values">Zalecane wartości</string>
@@ -98,6 +121,14 @@
     <string name="results_saddle_handlebar_distance">Odległość siodło-kierownica</string>
     <string name="results_cockpit">Regulacja kokpitu</string>
     <string name="results_cleat_position">Pozycja butów</string>
+    <string name="results_no_results">Brak dostępnych wyników. Najpierw oblicz parametry.</string>
+    <string name="results_detailed_parameters">Parametry szczegółowe</string>
+    <string name="results_saddle_fore_aft">Pozycja siodła przód-tył</string>
+    <string name="results_saddle_fore_aft_desc">Pozycja względem suportu</string>
+    <string name="results_saddle_handlebar_distance_desc">Odległość między siodłem a kierownicą</string>
+    <string name="results_handlebar_width">Szerokość kierownicy</string>
+    <string name="results_handlebar_width_desc">Zalecana szerokość kierownicy</string>
+    <string name="results_cleat_position_desc">Pozycja względem osi pedału</string>
 
     <!-- Reference Tables -->
     <string name="table_saddle_height_title">Tabela referencyjna (Wzrost → Wysokość siodła)</string>
@@ -127,6 +158,12 @@
     <string name="settings_about">O aplikacji</string>
     <string name="settings_version">Wersja</string>
     <string name="settings_privacy_policy">Polityka prywatności</string>
+    <string name="settings_section_general">Ogólne</string>
+    <string name="settings_section_display">Wyświetlanie</string>
+    <string name="settings_section_measurement">Pomiar</string>
+    <string name="settings_section_about">O aplikacji</string>
+    <string name="settings_precision_decimal_places">%1$d miejsca po przecinku</string>
+    <string name="settings_copyright">© 2026 0x-void Dev Team</string>
 
     <!-- AR Measurement -->
     <string name="ar_title">Pomiar AR</string>
@@ -178,4 +215,9 @@
     <string name="about_version">Wersja %s</string>
     <string name="about_author">0x-void Dev Team</string>
     <string name="about_website">https://0x-void.tech</string>
+    <string name="rec_saddle_increase">Zwiększ wysokość siodła o %1$dmm</string>
+    <string name="rec_saddle_decrease">Zmniejsz wysokość siodła o %1$dmm</string>
+    <string name="rec_handlebar_increase">Podnieś kierownicę o %1$dmm</string>
+    <string name="rec_handlebar_decrease">Obniż kierownicę o %1$dmm</string>
+    <string name="rec_gravel_general">Dla rowerów gravel rozważ nieco niższą wysokość siodła dla lepszej kontroli</string>
 </resources>

@@ -4,19 +4,19 @@
 
 plugins {
     id("com.android.application")
-    id("org.jetbrains.kotlin.android")
     id("com.google.dagger.hilt.android")
     id("androidx.room")
-    id("kotlin-kapt")
+    id("com.google.devtools.ksp")
+    id("org.jetbrains.kotlin.plugin.compose")
 }
 
 android {
     namespace = "com.optibike.fitting"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.optibike.fitting"
-        minSdk = 21  // Android 5.0+ Lollipop (required by Hilt Navigation Compose, CameraX, Compose)
+        minSdk = 26  // Android 8.0+ (required by some new components)
         targetSdk = 34
         versionCode = 1
         versionName = "1.0.0"
@@ -44,20 +44,16 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
-    kotlinOptions {
-        jvmTarget = "17"
-    }
-
     buildFeatures {
         compose = true
         viewBinding = false  // Using Compose
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.4"
+        aidl = true
     }
 
     packaging {
+        jniLibs {
+            useLegacyPackaging = true
+        }
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
             excludes += "/META-INF/DEPENDENCIES"
@@ -65,50 +61,47 @@ android {
             excludes += "/META-INF/NOTICE"
         }
     }
+}
 
-    // Room database configuration
-    room {
-        schemaDirectory("schemas")
-    }
+// Room database configuration
+room {
+    schemaDirectory("schemas")
 }
 
 dependencies {
     // Kotlin
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.20")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
 
     // Android Core
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.11.0")
+    implementation("androidx.core:core-ktx:1.16.0")
+    implementation("androidx.appcompat:appcompat:1.7.0")
+    implementation("com.google.android.material:material:1.12.0")
 
     // Jetpack Compose (with BOM)
-    implementation(platform("androidx.compose:compose-bom:2024.02.00"))
+    implementation(platform("androidx.compose:compose-bom:2026.06.01"))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.material:material-icons-extended")
-    implementation("androidx.activity:activity-compose:1.8.2")
-    implementation("androidx.navigation:navigation-compose:2.7.7")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0")
+    implementation("androidx.activity:activity-compose")
+    implementation("androidx.navigation:navigation-compose")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose")
 
     // Hilt (Dependency Injection)
-    implementation("com.google.dagger:hilt-android:2.48")
-    kapt("com.google.dagger:hilt-compiler:2.48")
+    implementation("com.google.dagger:hilt-android:2.60.1")
+    ksp("com.google.dagger:hilt-compiler:2.60.1")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
     // Room (Database)
-    implementation("androidx.room:room-runtime:2.6.1")
-    implementation("androidx.room:room-ktx:2.6.1")
-    kapt("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.room:room-runtime:2.8.4")
+    implementation("androidx.room:room-ktx:2.8.4")
+    ksp("androidx.room:room-compiler:2.8.4")
 
     // ARCore (Optional - for AR measurements)
-    implementation("com.google.ar:core:1.40.0")
-    implementation("com.google.ar.sceneform:core:1.17.1")
-    implementation("com.google.ar.sceneform.ux:sceneform-ux:1.17.1")
+    implementation("com.google.ar:core:1.54.0")
 
     // CameraX (Optional - for AR measurements)
     implementation("androidx.camera:camera-core:1.3.0")
@@ -116,8 +109,8 @@ dependencies {
     implementation("androidx.camera:camera-lifecycle:1.3.0")
     implementation("androidx.camera:camera-view:1.3.0")
 
-    // PDF Export (using Apache PDFBox 2.0.27 - supports API 21+)
-    implementation("org.apache.pdfbox:pdfbox:2.0.27")
+    // PDF Export (using pdfbox-android - supports Android)
+    implementation("com.tom-roush:pdfbox-android:2.0.27.0")
 
     // Testing
     testImplementation("junit:junit:4.13.2")

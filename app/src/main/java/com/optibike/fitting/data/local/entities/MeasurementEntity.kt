@@ -18,6 +18,7 @@ data class MeasurementEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
     val userId: String = "default",
+    val bikeId: Long? = null,
     val bikeType: BikeType = BikeType.ROAD,
     val height: Double? = null,
     val inseam: Double? = null,

@@ -216,6 +216,7 @@ object BikeFittingFormulas {
     
     /**
      * Generate recommendations based on current vs calculated values
+     * Returns a list of recommendation keys that can be localized in UI
      */
     private fun generateRecommendations(
         measurement: Measurement,
@@ -227,11 +228,9 @@ object BikeFittingFormulas {
         measurement.currentSaddleHeight?.let { current ->
             val difference = results.saddleHeight - current
             if (difference > 5) {
-                recommendations.add("Increase saddle height by ${difference.toInt()}mm")
+                recommendations.add("REC_SADDLE_INCREASE|${difference.toInt()}")
             } else if (difference < -5) {
-                recommendations.add("Decrease saddle height by ${Math.abs(difference.toInt())}mm")
-            } else {
-                // No recommendation needed
+                recommendations.add("REC_SADDLE_DECREASE|${Math.abs(difference.toInt())}")
             }
         }
         
@@ -239,17 +238,15 @@ object BikeFittingFormulas {
         measurement.currentHandlebarHeight?.let { current ->
             val difference = results.handlebarHeight - current
             if (difference > 5) {
-                recommendations.add("Raise handlebar by ${difference.toInt()}mm")
+                recommendations.add("REC_HANDLEBAR_INCREASE|${difference.toInt()}")
             } else if (difference < -5) {
-                recommendations.add("Lower handlebar by ${Math.abs(difference.toInt())}mm")
-            } else {
-                // No recommendation needed
+                recommendations.add("REC_HANDLEBAR_DECREASE|${Math.abs(difference.toInt())}")
             }
         }
         
         // General recommendations
         if (measurement.bikeType == BikeType.GRAVEL) {
-            recommendations.add("For gravel bikes, consider a slightly lower saddle height for better control")
+            recommendations.add("REC_GRAVEL_GENERAL")
         }
         
         return recommendations

@@ -87,8 +87,20 @@ fun AppNavHost(
         }
         
         // Measurement Screens
-        composable(Destinations.MANUAL_MEASUREMENT) {
-            ManualMeasurementScreen(navController = navController)
+        composable(
+            route = "${Destinations.MANUAL_MEASUREMENT}?stepId={stepId}",
+            arguments = listOf(
+                navArgument("stepId") {
+                    type = NavType.IntType
+                    defaultValue = 0
+                }
+            )
+        ) { backStackEntry ->
+            val stepId = backStackEntry.arguments?.getInt("stepId") ?: 0
+            ManualMeasurementScreen(
+                navController = navController,
+                stepId = if (stepId > 0) stepId else null
+            )
         }
         
         composable(Destinations.AR_MEASUREMENT) {

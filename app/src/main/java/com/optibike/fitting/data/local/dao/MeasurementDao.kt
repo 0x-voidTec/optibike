@@ -32,6 +32,9 @@ interface MeasurementDao {
     @Query("SELECT * FROM measurements WHERE userId = :userId ORDER BY timestamp DESC")
     fun getMeasurementsByUser(userId: String): Flow<List<MeasurementEntity>>
     
+    @Query("SELECT * FROM measurements WHERE bikeId = :bikeId ORDER BY timestamp DESC")
+    fun getMeasurementsByBike(bikeId: Long): Flow<List<MeasurementEntity>>
+    
     @Query("SELECT * FROM measurements WHERE bikeType = :bikeType ORDER BY timestamp DESC")
     fun getMeasurementsByBikeType(bikeType: String): Flow<List<MeasurementEntity>>
     

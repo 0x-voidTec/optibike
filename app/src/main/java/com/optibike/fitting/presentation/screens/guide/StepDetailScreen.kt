@@ -181,7 +181,7 @@ fun StepDetailScreen(
         // Action Buttons
         Button(
             onClick = {
-                navController.navigate(Destinations.MANUAL_MEASUREMENT)
+                navController.navigate("${Destinations.MANUAL_MEASUREMENT}?stepId=${step.id}")
             },
             colors = ButtonDefaults.buttonColors(
                 containerColor = OptiBikeColors.PrimaryCyan,

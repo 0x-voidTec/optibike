@@ -11,12 +11,12 @@ object Validators {
     
     // Height validation (cm)
     fun validateHeight(height: Double?): Boolean {
-        return height != null && height >= 100.0 && height <= 250.0
+        return height != null && height >= 50.0 && height <= 250.0
     }
     
     // Inseam validation (cm)
     fun validateInseam(inseam: Double?): Boolean {
-        return inseam != null && inseam >= 50.0 && inseam <= 120.0
+        return inseam != null && inseam >= 30.0 && inseam <= 150.0
     }
     
     // Shoulder width validation (cm)
@@ -77,13 +77,13 @@ object Validators {
         bikeType: com.optibike.fitting.domain.model.BikeType?
     ): String? {
         if (!validateHeight(height)) {
-            return "Height must be between 100cm and 250cm"
+            return "ERR_HEIGHT_RANGE"
         }
         if (!validateInseam(inseam)) {
-            return "Inseam must be between 50cm and 120cm"
+            return "ERR_INSEAM_RANGE"
         }
         if (bikeType == null) {
-            return "Please select bike type"
+            return "ERR_BIKE_TYPE_REQUIRED"
         }
         return null
     }

@@ -1,6 +1,7 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 package com.optibike.fitting.presentation.screens.settings
 
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -40,6 +41,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.os.LocaleListCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
@@ -84,12 +86,14 @@ fun SettingsScreen(
         Spacer(modifier = Modifier.height(24.dp))
         
         // Settings Sections
-        SettingsSection(title = "General") {
+        SettingsSection(title = stringResource(id = R.string.settings_section_general)) {
             // Language
             LanguageSetting(
                 currentLanguage = settings.language,
                 onLanguageChange = { language ->
                     viewModel.updateLanguage(language)
+                    val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags(language)
+                    AppCompatDelegate.setApplicationLocales(appLocale)
                 }
             )
             
@@ -106,7 +110,7 @@ fun SettingsScreen(
         
         Spacer(modifier = Modifier.height(16.dp))
         
-        SettingsSection(title = "Display") {
+        SettingsSection(title = stringResource(id = R.string.settings_section_display)) {
             // Dark Mode
             DarkModeSetting(
                 isDarkModeEnabled = settings.isDarkModeEnabled,
@@ -118,7 +122,7 @@ fun SettingsScreen(
         
         Spacer(modifier = Modifier.height(16.dp))
         
-        SettingsSection(title = "Measurement") {
+        SettingsSection(title = stringResource(id = R.string.settings_section_measurement)) {
             // Measurement Precision
             PrecisionSetting(
                 currentPrecision = settings.measurementPrecision,
@@ -130,7 +134,7 @@ fun SettingsScreen(
         
         Spacer(modifier = Modifier.height(16.dp))
         
-        SettingsSection(title = "About") {
+        SettingsSection(title = stringResource(id = R.string.settings_section_about)) {
             AboutInfo()
         }
         
@@ -369,7 +373,7 @@ private fun PrecisionSetting(
             onExpandedChange = { expanded = !expanded }
         ) {
             Text(
-                text = "$currentPrecision decimal places",
+                text = stringResource(id = R.string.settings_precision_decimal_places, currentPrecision),
                 color = OptiBikeColors.TextSecondary,
                 fontSize = 14.sp,
                 modifier = Modifier.menuAnchor()
@@ -381,7 +385,14 @@ private fun PrecisionSetting(
             ) {
                 (0..3).forEach { precision ->
                     DropdownMenuItem(
-                        text = { Text("$precision decimal places") },
+                        text = { 
+                            Text(
+                                stringResource(
+                                    id = R.string.settings_precision_decimal_places,
+                                    precision
+                                )
+                            ) 
+                        },
                         onClick = {
                             onPrecisionChange(precision)
                             expanded = false
@@ -408,13 +419,13 @@ private fun AboutInfo() {
         )
         
         Text(
-            text = "OptiBike - Professional Bike Fitting App",
+            text = stringResource(id = R.string.app_description),
             color = OptiBikeColors.TextSecondary,
             fontSize = 12.sp
         )
         
         Text(
-            text = "© 2026 0x-void Dev Team",
+            text = stringResource(id = R.string.settings_copyright),
             color = OptiBikeColors.TextSecondary,
             fontSize = 12.sp
         )

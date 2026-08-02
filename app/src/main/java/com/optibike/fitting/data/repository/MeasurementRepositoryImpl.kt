@@ -38,6 +38,12 @@ class MeasurementRepositoryImpl @Inject constructor(
             entities.map { it.toDomain() }
         }
     }
+
+    override fun getMeasurementsByBike(bikeId: Long): Flow<List<Measurement>> {
+        return measurementDao.getMeasurementsByBike(bikeId).map { entities ->
+            entities.map { it.toDomain() }
+        }
+    }
     
     override suspend fun updateMeasurement(measurement: Measurement) {
         measurementDao.updateMeasurement(measurement.toEntity())
@@ -63,6 +69,7 @@ fun Measurement.toEntity(): MeasurementEntity {
     return MeasurementEntity(
         id = id,
         userId = userId,
+        bikeId = bikeId,
         bikeType = bikeType,
         height = height,
         inseam = inseam,
@@ -91,6 +98,7 @@ fun MeasurementEntity.toDomain(): Measurement {
     return Measurement(
         id = id,
         userId = userId,
+        bikeId = bikeId,
         bikeType = bikeType,
         height = height,
         inseam = inseam,

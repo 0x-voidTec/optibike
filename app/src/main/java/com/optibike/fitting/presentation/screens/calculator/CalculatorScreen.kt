@@ -78,7 +78,7 @@ fun CalculatorScreen(
         )
         
         Text(
-            text = "Calculate your optimal bike fitting parameters",
+            text = stringResource(id = R.string.calculator_subtitle),
             color = OptiBikeColors.TextSecondary,
             fontSize = 16.sp,
             modifier = Modifier
@@ -107,13 +107,13 @@ fun CalculatorScreen(
             Spacer(modifier = Modifier.height(24.dp))
         } else if (isLoading) {
             Text(
-                text = "Loading latest measurement...",
+                text = stringResource(id = R.string.loading_latest),
                 color = OptiBikeColors.TextSecondary,
                 fontSize = 16.sp
             )
         } else {
             Text(
-                text = "No measurements found. Please complete a measurement first.",
+                text = stringResource(id = R.string.results_no_results),
                 color = OptiBikeColors.TextSecondary,
                 fontSize = 16.sp,
                 modifier = Modifier.fillMaxWidth(),
@@ -137,7 +137,7 @@ fun CalculatorScreen(
                 .height(56.dp)
         ) {
             Text(
-                text = "New Measurement",
+                text = stringResource(id = R.string.btn_new_measurement),
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -184,7 +184,7 @@ private fun ResultsCard(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Text(
-                text = "Your Bike Fitting Results",
+                text = stringResource(id = R.string.results_title_card),
                 color = OptiBikeColors.PrimaryCyan,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold
@@ -192,49 +192,49 @@ private fun ResultsCard(
             
             // Saddle Height
             ResultRow(
-                label = "Saddle Height",
+                label = stringResource(id = R.string.results_saddle_height),
                 value = viewModel.getFormattedResult(results.saddleHeight),
                 unit = "mm"
             )
             
             // Saddle Tilt
             ResultRow(
-                label = "Saddle Tilt",
+                label = stringResource(id = R.string.results_saddle_tilt),
                 value = viewModel.getFormattedAngle(results.saddleTilt),
                 unit = ""
             )
             
             // Saddle Fore-Aft
             ResultRow(
-                label = "Saddle Fore-Aft",
+                label = stringResource(id = R.string.results_saddle_fore_aft),
                 value = viewModel.getFormattedResult(results.saddleForeAft),
                 unit = "mm"
             )
             
             // Handlebar Height
             ResultRow(
-                label = "Handlebar Height",
+                label = stringResource(id = R.string.results_handlebar_height),
                 value = viewModel.getFormattedResult(results.handlebarHeight),
                 unit = "mm"
             )
             
             // Saddle-Handlebar Distance
             ResultRow(
-                label = "Saddle-Handlebar Distance",
+                label = stringResource(id = R.string.results_saddle_handlebar_distance),
                 value = viewModel.getFormattedResult(results.saddleHandlebarDistance),
                 unit = "mm"
             )
             
             // Handlebar Width
             ResultRow(
-                label = "Handlebar Width",
+                label = stringResource(id = R.string.results_handlebar_width),
                 value = viewModel.getFormattedResult(results.handlebarWidth),
                 unit = "mm"
             )
             
             // Cleat Position
             ResultRow(
-                label = "Cleat Position",
+                label = stringResource(id = R.string.results_cleat_position),
                 value = viewModel.getFormattedResult(results.cleatPosition),
                 unit = "mm"
             )
@@ -243,15 +243,16 @@ private fun ResultsCard(
             if (results.recommendations.isNotEmpty()) {
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(
-                    text = "Recommendations:",
+                    text = stringResource(id = R.string.results_recommendations),
                     color = OptiBikeColors.NeonGreen,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold
                 )
                 
-                results.recommendations.forEachIndexed { index, recommendation ->
+                results.recommendations.forEachIndexed { index, recommendationKey ->
+                    val localizedText = parseRecommendation(recommendationKey)
                     Text(
-                        text = "• $recommendation",
+                        text = "• $localizedText",
                         color = OptiBikeColors.TextSecondary,
                         fontSize = 14.sp,
                         modifier = Modifier.padding(top = 4.dp)
@@ -259,6 +260,19 @@ private fun ResultsCard(
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun parseRecommendation(key: String): String {
+    val parts = key.split("|")
+    return when (parts[0]) {
+        "REC_SADDLE_INCREASE" -> stringResource(id = R.string.rec_saddle_increase, parts[1].toInt())
+        "REC_SADDLE_DECREASE" -> stringResource(id = R.string.rec_saddle_decrease, parts[1].toInt())
+        "REC_HANDLEBAR_INCREASE" -> stringResource(id = R.string.rec_handlebar_increase, parts[1].toInt())
+        "REC_HANDLEBAR_DECREASE" -> stringResource(id = R.string.rec_handlebar_decrease, parts[1].toInt())
+        "REC_GRAVEL_GENERAL" -> stringResource(id = R.string.rec_gravel_general)
+        else -> key
     }
 }
 

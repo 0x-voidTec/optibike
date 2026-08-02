@@ -1,3 +1,4 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
 package com.optibike.fitting.presentation.screens.measurement
 
 import androidx.compose.foundation.background
@@ -19,6 +20,7 @@ import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -39,7 +41,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.optibike.fitting.R
+import com.optibike.fitting.domain.model.BikeFittingSteps
 import com.optibike.fitting.domain.model.BikeType
+import com.optibike.fitting.domain.model.MeasurementType
 import com.optibike.fitting.presentation.navigation.Destinations
 import com.optibike.fitting.presentation.theme.OptiBikeColors
 import com.optibike.fitting.presentation.theme.OptiBikeTheme
@@ -52,11 +56,11 @@ import com.optibike.fitting.presentation.viewmodel.MeasurementViewModel
  * @author Vibe Code (AI Agent)
  * @since 1.0.0
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ManualMeasurementScreen(
     navController: NavController,
-    viewModel: MeasurementViewModel = hiltViewModel()
+    viewModel: MeasurementViewModel = hiltViewModel(),
+    stepId: Int? = null
 ) {
     val measurementInput by viewModel.measurementInput.collectAsState()
     val validationError by viewModel.validationError.collectAsState()
@@ -74,18 +78,32 @@ fun ManualMeasurementScreen(
         }
     }
     
+    val scrollState = rememberScrollState()
+    val step = stepId?.let { BikeFittingSteps.getStepById(it) }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(OptiBikeColors.BackgroundDark)
-            .verticalScroll(rememberScrollState())
+            .verticalScroll(scrollState)
             .padding(16.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         // Title
         Text(
-            text = stringResource(id = R.string.measurement_manual_title),
+            text = step?.let { stringResource(id = R.string.step_label, it.id) } 
+                ?: stringResource(id = R.string.measurement_manual_title),
+            color = OptiBikeColors.PrimaryCyan,
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Bold
+        )
+        
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Text(
+            text = step?.let { stringResource(id = it.titleResId) }
+                ?: stringResource(id = R.string.measurement_manual_title),
             color = OptiBikeColors.TextPrimary,
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
@@ -110,6 +128,8 @@ fun ManualMeasurementScreen(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
+            // Basic fields (always visible)
+            
             // Height
             OutlinedTextField(
                 value = measurementInput.height?.toString() ?: "",
@@ -117,21 +137,14 @@ fun ManualMeasurementScreen(
                     viewModel.updateHeight(it.toDoubleOrNull())
                 },
                 label = {
-                    Text(
-                        text = stringResource(id = R.string.form_height),
-                        color = OptiBikeColors.TextPrimary
-                    )
+                    Text(text = stringResource(id = R.string.form_height))
                 },
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Number
-                ),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth(),
                 colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(
                     focusedBorderColor = OptiBikeColors.PrimaryCyan,
-                    unfocusedBorderColor = OptiBikeColors.DividerColor,
-                    focusedLabelColor = OptiBikeColors.PrimaryCyan,
-                    unfocusedLabelColor = OptiBikeColors.TextSecondary
+                    unfocusedBorderColor = OptiBikeColors.DividerColor
                 )
             )
             
@@ -142,25 +155,18 @@ fun ManualMeasurementScreen(
                     viewModel.updateInseam(it.toDoubleOrNull())
                 },
                 label = {
-                    Text(
-                        text = stringResource(id = R.string.form_leg_length),
-                        color = OptiBikeColors.TextPrimary
-                    )
+                    Text(text = stringResource(id = R.string.form_leg_length))
                 },
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Number
-                ),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth(),
                 colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(
                     focusedBorderColor = OptiBikeColors.PrimaryCyan,
-                    unfocusedBorderColor = OptiBikeColors.DividerColor,
-                    focusedLabelColor = OptiBikeColors.PrimaryCyan,
-                    unfocusedLabelColor = OptiBikeColors.TextSecondary
+                    unfocusedBorderColor = OptiBikeColors.DividerColor
                 )
             )
             
-            // Bike Type Dropdown
+            // Bike Type
             ExposedDropdownMenuBox(
                 expanded = bikeTypeExpanded,
                 onExpandedChange = { bikeTypeExpanded = !bikeTypeExpanded }
@@ -172,25 +178,12 @@ fun ManualMeasurementScreen(
                     },
                     onValueChange = {},
                     readOnly = true,
-                    label = {
-                        Text(
-                            text = stringResource(id = R.string.form_bike_type),
-                            color = OptiBikeColors.TextPrimary
-                        )
-                    },
-                    trailingIcon = {
-                        ExposedDropdownMenuDefaults.TrailingIcon(
-                            expanded = bikeTypeExpanded
-                        )
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .menuAnchor(),
+                    label = { Text(text = stringResource(id = R.string.form_bike_type)) },
+                    trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = bikeTypeExpanded) },
+                    modifier = Modifier.fillMaxWidth().menuAnchor(),
                     colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(
                         focusedBorderColor = OptiBikeColors.PrimaryCyan,
-                        unfocusedBorderColor = OptiBikeColors.DividerColor,
-                        focusedLabelColor = OptiBikeColors.PrimaryCyan,
-                        unfocusedLabelColor = OptiBikeColors.TextSecondary
+                        unfocusedBorderColor = OptiBikeColors.DividerColor
                     )
                 )
                 
@@ -203,111 +196,97 @@ fun ManualMeasurementScreen(
                         onClick = {
                             viewModel.updateBikeType(BikeType.ROAD)
                             bikeTypeExpanded = false
-                        },
-                        contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding
+                        }
                     )
                     DropdownMenuItem(
                         text = { Text(stringResource(id = R.string.form_bike_type_gravel)) },
                         onClick = {
                             viewModel.updateBikeType(BikeType.GRAVEL)
                             bikeTypeExpanded = false
-                        },
-                        contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding
+                        }
                     )
                 }
             }
             
-            // Optional Fields
-            Text(
-                text = "Optional Measurements",
-                color = OptiBikeColors.TextSecondary,
-                fontSize = 14.sp,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 8.dp)
-            )
+            // Step-specific fields or All fields if no stepId
+            val showAll = stepId == null
             
-            // Shoulder Width
-            OutlinedTextField(
-                value = measurementInput.shoulderWidth?.toString() ?: "",
-                onValueChange = { 
-                    viewModel.updateShoulderWidth(it.toDoubleOrNull())
-                },
-                label = {
-                    Text(
-                        text = stringResource(id = R.string.form_shoulder_width),
-                        color = OptiBikeColors.TextPrimary
+            // Shoulder Width (Step 6)
+            if (showAll || step?.requiredMeasurements?.contains(MeasurementType.SHOULDER_WIDTH) == true) {
+                OutlinedTextField(
+                    value = measurementInput.shoulderWidth?.toString() ?: "",
+                    onValueChange = { viewModel.updateShoulderWidth(it.toDoubleOrNull()) },
+                    label = { Text(text = stringResource(id = R.string.form_shoulder_width)) },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = OptiBikeColors.PrimaryCyan,
+                        unfocusedBorderColor = OptiBikeColors.DividerColor
                     )
-                },
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Number
-                ),
-                singleLine = true,
-                modifier = Modifier.fillMaxWidth(),
-                colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(
-                    focusedBorderColor = OptiBikeColors.PrimaryCyan,
-                    unfocusedBorderColor = OptiBikeColors.DividerColor,
-                    focusedLabelColor = OptiBikeColors.PrimaryCyan,
-                    unfocusedLabelColor = OptiBikeColors.TextSecondary
                 )
-            )
+            }
             
-            // Arm Length
-            OutlinedTextField(
-                value = measurementInput.armLength?.toString() ?: "",
-                onValueChange = { 
-                    viewModel.updateArmLength(it.toDoubleOrNull())
-                },
-                label = {
-                    Text(
-                        text = stringResource(id = R.string.form_arm_length),
-                        color = OptiBikeColors.TextPrimary
+            // Arm Length (Step 4)
+            if (showAll || step?.requiredMeasurements?.contains(MeasurementType.ARM_LENGTH) == true) {
+                OutlinedTextField(
+                    value = measurementInput.armLength?.toString() ?: "",
+                    onValueChange = { viewModel.updateArmLength(it.toDoubleOrNull()) },
+                    label = { Text(text = stringResource(id = R.string.form_arm_length)) },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = OptiBikeColors.PrimaryCyan,
+                        unfocusedBorderColor = OptiBikeColors.DividerColor
                     )
-                },
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Number
-                ),
-                singleLine = true,
-                modifier = Modifier.fillMaxWidth(),
-                colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(
-                    focusedBorderColor = OptiBikeColors.PrimaryCyan,
-                    unfocusedBorderColor = OptiBikeColors.DividerColor,
-                    focusedLabelColor = OptiBikeColors.PrimaryCyan,
-                    unfocusedLabelColor = OptiBikeColors.TextSecondary
                 )
-            )
+            }
             
-            // Current Saddle Height
-            OutlinedTextField(
-                value = measurementInput.currentSaddleHeight?.toString() ?: "",
-                onValueChange = { 
-                    viewModel.updateCurrentSaddleHeight(it.toDoubleOrNull())
-                },
-                label = {
-                    Text(
-                        text = stringResource(id = R.string.form_saddle_height),
-                        color = OptiBikeColors.TextPrimary
+            // Current Saddle Height (Recommendations)
+            if (showAll || step?.requiredMeasurements?.contains(MeasurementType.SADDLE_HEIGHT) == true) {
+                OutlinedTextField(
+                    value = measurementInput.currentSaddleHeight?.toString() ?: "",
+                    onValueChange = { viewModel.updateCurrentSaddleHeight(it.toDoubleOrNull()) },
+                    label = { Text(text = stringResource(id = R.string.form_saddle_height)) },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = OptiBikeColors.PrimaryCyan,
+                        unfocusedBorderColor = OptiBikeColors.DividerColor
                     )
-                },
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Number
-                ),
-                singleLine = true,
-                modifier = Modifier.fillMaxWidth(),
-                colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(
-                    focusedBorderColor = OptiBikeColors.PrimaryCyan,
-                    unfocusedBorderColor = OptiBikeColors.DividerColor,
-                    focusedLabelColor = OptiBikeColors.PrimaryCyan,
-                    unfocusedLabelColor = OptiBikeColors.TextSecondary
                 )
-            )
+            }
+            
+            // Shoe Size (Step 7)
+            if (showAll || step?.requiredMeasurements?.contains(MeasurementType.SHOE_SIZE) == true) {
+                OutlinedTextField(
+                    value = measurementInput.shoeSize?.toString() ?: "",
+                    onValueChange = { viewModel.updateShoeSize(it.toIntOrNull()) },
+                    label = { Text(text = stringResource(id = R.string.form_shoe_size)) },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = OptiBikeColors.PrimaryCyan,
+                        unfocusedBorderColor = OptiBikeColors.DividerColor
+                    )
+                )
+            }
         }
         
         // Validation Error
         if (validationError != null) {
             Spacer(modifier = Modifier.height(16.dp))
+            val errorMessage = when (validationError) {
+                "ERR_HEIGHT_RANGE" -> stringResource(id = R.string.error_height_range)
+                "ERR_INSEAM_RANGE" -> stringResource(id = R.string.error_leg_length_range)
+                "ERR_BIKE_TYPE_REQUIRED" -> stringResource(id = R.string.error_required_field)
+                else -> validationError!!
+            }
             Text(
-                text = validationError!!,
+                text = errorMessage,
                 color = OptiBikeColors.Error,
                 fontSize = 14.sp,
                 modifier = Modifier.fillMaxWidth(),
@@ -324,40 +303,31 @@ fun ManualMeasurementScreen(
             },
             colors = ButtonDefaults.buttonColors(
                 containerColor = OptiBikeColors.PrimaryCyan,
-                contentColor = OptiBikeColors.BackgroundDark,
-                disabledContainerColor = OptiBikeColors.DividerColor,
-                disabledContentColor = OptiBikeColors.TextDisabled
+                contentColor = OptiBikeColors.BackgroundDark
             ),
             enabled = viewModel.isFormValid() && !isLoading,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(56.dp)
+            modifier = Modifier.fillMaxWidth().height(56.dp)
         ) {
-            Text(
-                text = stringResource(id = R.string.btn_calculate),
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold
-            )
+            if (isLoading) {
+                CircularProgressIndicator(color = OptiBikeColors.BackgroundDark, modifier = Modifier.padding(8.dp))
+            } else {
+                Text(
+                    text = stringResource(id = R.string.btn_calculate),
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
         }
         
         Spacer(modifier = Modifier.height(16.dp))
         
         // Cancel Button
         Button(
-            onClick = {
-                navController.popBackStack()
-            },
-            colors = ButtonDefaults.outlinedButtonColors(
-                contentColor = OptiBikeColors.TextSecondary
-            ),
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(48.dp)
+            onClick = { navController.popBackStack() },
+            colors = ButtonDefaults.outlinedButtonColors(contentColor = OptiBikeColors.TextSecondary),
+            modifier = Modifier.fillMaxWidth().height(48.dp)
         ) {
-            Text(
-                text = stringResource(id = R.string.btn_cancel),
-                fontSize = 16.sp
-            )
+            Text(text = stringResource(id = R.string.btn_cancel), fontSize = 16.sp)
         }
     }
 }
@@ -366,8 +336,6 @@ fun ManualMeasurementScreen(
 @Composable
 fun ManualMeasurementScreenPreview() {
     OptiBikeTheme {
-        ManualMeasurementScreen(
-            navController = rememberNavController()
-        )
+        ManualMeasurementScreen(navController = rememberNavController())
     }
 }
