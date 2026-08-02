@@ -110,8 +110,20 @@ fun AppNavHost(
         }
         
         // Results Screens
-        composable(Destinations.RESULTS) {
-            ResultsScreen(navController = navController)
+        composable(
+            route = Destinations.RESULTS,
+            arguments = listOf(
+                navArgument("measurementId") {
+                    type = NavType.LongType
+                    defaultValue = -1L
+                }
+            )
+        ) { backStackEntry ->
+            val measurementId = backStackEntry.arguments?.getLong("measurementId") ?: -1L
+            ResultsScreen(
+                navController = navController,
+                measurementId = if (measurementId != -1L) measurementId else null
+            )
         }
         
         composable(Destinations.PDF_EXPORT) {

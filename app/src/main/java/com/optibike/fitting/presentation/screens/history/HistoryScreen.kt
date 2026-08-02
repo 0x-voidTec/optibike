@@ -140,7 +140,7 @@ fun HistoryScreen(
                         )
                     ) {
                         Text(
-                            text = "Create New Measurement",
+                            text = stringResource(id = R.string.history_create_new),
                             fontSize = 16.sp
                         )
                     }
@@ -158,7 +158,7 @@ fun HistoryScreen(
                         measurement = measurement,
                         onClick = {
                             navController.navigate(
-                                Destinations.getStepDetailRoute(1) // TODO: Navigate to measurement details
+                                Destinations.getResultsRoute(measurement.id)
                             )
                         },
                         onDelete = {
@@ -228,7 +228,7 @@ private fun MeasurementCard(
                     verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     Text(
-                        text = "Measurement #${measurement.id}",
+                        text = stringResource(id = R.string.history_measurement_label, measurement.id),
                         color = OptiBikeColors.TextPrimary,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Bold
@@ -244,7 +244,7 @@ private fun MeasurementCard(
                     
                     // Bike type
                     Text(
-                        text = "Bike: ${measurement.bikeType.name}",
+                        text = stringResource(id = R.string.history_bike_label, measurement.bikeType.name),
                         color = OptiBikeColors.PrimaryCyan,
                         fontSize = 14.sp
                     )
@@ -257,7 +257,7 @@ private fun MeasurementCard(
                     ) {
                         Icon(
                             imageVector = Icons.Default.MoreVert,
-                            contentDescription = "More options",
+                            contentDescription = stringResource(id = R.string.history_delete),
                             tint = OptiBikeColors.TextSecondary
                         )
                     }
@@ -267,14 +267,14 @@ private fun MeasurementCard(
                         onDismissRequest = { showMenu = false }
                     ) {
                         DropdownMenuItem(
-                            text = { Text("Export PDF") },
+                            text = { Text(stringResource(id = R.string.history_export_pdf)) },
                             onClick = {
                                 showMenu = false
                                 onExportPdf()
                             }
                         )
                         DropdownMenuItem(
-                            text = { Text("Delete", color = OptiBikeColors.Error) },
+                            text = { Text(stringResource(id = R.string.history_delete), color = OptiBikeColors.Error) },
                             onClick = {
                                 showMenu = false
                                 showDeleteDialog = true
@@ -290,13 +290,13 @@ private fun MeasurementCard(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 measurement.height?.let { height ->
-                    InfoChip(label = "Height", value = "${height}cm")
+                    InfoChip(label = stringResource(id = R.string.history_height_label), value = "${height}cm")
                 }
                 measurement.inseam?.let { inseam ->
-                    InfoChip(label = "Inseam", value = "${inseam}cm")
+                    InfoChip(label = stringResource(id = R.string.history_inseam_label), value = "${inseam}cm")
                 }
                 measurement.calculatedSaddleHeight?.let { saddleHeight ->
-                    InfoChip(label = "Saddle", value = "${saddleHeight.toInt()}mm")
+                    InfoChip(label = stringResource(id = R.string.history_saddle_label), value = "${saddleHeight.toInt()}mm")
                 }
             }
         }
@@ -308,13 +308,13 @@ private fun MeasurementCard(
             onDismissRequest = { showDeleteDialog = false },
             title = {
                 Text(
-                    text = "Delete Measurement",
+                    text = stringResource(id = R.string.history_delete_title),
                     color = OptiBikeColors.TextPrimary
                 )
             },
             text = {
                 Text(
-                    text = "Are you sure you want to delete this measurement?",
+                    text = stringResource(id = R.string.history_delete_message),
                     color = OptiBikeColors.TextSecondary
                 )
             },
@@ -329,7 +329,7 @@ private fun MeasurementCard(
                         contentColor = OptiBikeColors.BackgroundDark
                     )
                 ) {
-                    Text("Delete")
+                    Text(stringResource(id = R.string.history_delete))
                 }
             },
             dismissButton = {
@@ -339,7 +339,7 @@ private fun MeasurementCard(
                         contentColor = OptiBikeColors.TextSecondary
                     )
                 ) {
-                    Text("Cancel")
+                    Text(stringResource(id = R.string.btn_cancel))
                 }
             }
         )

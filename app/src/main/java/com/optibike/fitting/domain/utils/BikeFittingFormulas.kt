@@ -218,15 +218,16 @@ object BikeFittingFormulas {
      * Generate recommendations based on current vs calculated values
      * Returns a list of recommendation keys that can be localized in UI
      */
-    private fun generateRecommendations(
+    fun getLocalizedRecommendations(
         measurement: Measurement,
-        results: MeasurementResults
+        results: MeasurementResults? = null
     ): List<String> {
+        val finalResults = results ?: calculateAllParameters(measurement)
         val recommendations = mutableListOf<String>()
         
         // Saddle height recommendation
         measurement.currentSaddleHeight?.let { current ->
-            val difference = results.saddleHeight - current
+            val difference = finalResults.saddleHeight - current
             if (difference > 5) {
                 recommendations.add("REC_SADDLE_INCREASE|${difference.toInt()}")
             } else if (difference < -5) {
@@ -236,7 +237,7 @@ object BikeFittingFormulas {
         
         // Handlebar height recommendation
         measurement.currentHandlebarHeight?.let { current ->
-            val difference = results.handlebarHeight - current
+            val difference = finalResults.handlebarHeight - current
             if (difference > 5) {
                 recommendations.add("REC_HANDLEBAR_INCREASE|${difference.toInt()}")
             } else if (difference < -5) {
@@ -250,5 +251,12 @@ object BikeFittingFormulas {
         }
         
         return recommendations
+    }
+
+    private fun generateRecommendations(
+        measurement: Measurement,
+        results: MeasurementResults
+    ): List<String> {
+        return getLocalizedRecommendations(measurement, results)
     }
 }

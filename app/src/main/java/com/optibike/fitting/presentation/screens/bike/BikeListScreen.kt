@@ -145,7 +145,8 @@ fun BikeListItem(
                     fontWeight = FontWeight.Bold
                 )
                 Text(
-                    text = bike.type.name,
+                    text = if (bike.type == BikeType.ROAD) stringResource(id = R.string.form_bike_type_road)
+                           else stringResource(id = R.string.form_bike_type_gravel),
                     color = OptiBikeColors.TextSecondary,
                     fontSize = 14.sp
                 )

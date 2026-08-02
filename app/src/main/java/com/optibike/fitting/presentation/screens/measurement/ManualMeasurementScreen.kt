@@ -2,32 +2,12 @@
 package com.optibike.fitting.presentation.screens.measurement
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.ExposedDropdownMenuBox
-import androidx.compose.material3.ExposedDropdownMenuDefaults
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -52,6 +32,7 @@ import com.optibike.fitting.presentation.viewmodel.MeasurementViewModel
 /**
  * Manual Measurement Screen
  * Form for entering bike fitting measurements manually
+ * Optimized to show only relevant fields for a specific step
  * 
  * @author Vibe Code (AI Agent)
  * @since 1.0.0
@@ -68,20 +49,18 @@ fun ManualMeasurementScreen(
     val isLoading by viewModel.isLoading.collectAsState()
     val saveSuccess by viewModel.saveSuccess.collectAsState()
     
-    // Bike type dropdown state
     var bikeTypeExpanded by remember { mutableStateOf(false) }
     
-    // Automatically set bike type from selected bike
     LaunchedEffect(selectedBike) {
         selectedBike?.let {
             viewModel.updateBikeType(it.type)
         }
     }
     
-    // Handle successful save
     LaunchedEffect(saveSuccess) {
         if (saveSuccess) {
             navController.navigate(Destinations.RESULTS)
+            viewModel.consumeSaveSuccess()
             viewModel.resetForm()
         }
     }
@@ -98,17 +77,24 @@ fun ManualMeasurementScreen(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Title
-        Text(
-            text = step?.let { stringResource(id = R.string.step_label, it.id) } 
-                ?: stringResource(id = R.string.measurement_manual_title),
-            color = OptiBikeColors.PrimaryCyan,
-            fontSize = 14.sp,
-            fontWeight = FontWeight.Bold
-        )
-        
-        Spacer(modifier = Modifier.height(8.dp))
+        // Step Badge
+        step?.let {
+            Surface(
+                color = OptiBikeColors.PrimaryCyan.copy(alpha = 0.2f),
+                contentColor = OptiBikeColors.PrimaryCyan,
+                shape = MaterialTheme.shapes.small,
+                modifier = Modifier.padding(bottom = 8.dp)
+            ) {
+                Text(
+                    text = stringResource(id = R.string.step_label, it.id),
+                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp),
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+        }
 
+        // Title
         Text(
             text = step?.let { stringResource(id = it.titleResId) }
                 ?: stringResource(id = R.string.measurement_manual_title),
@@ -122,7 +108,7 @@ fun ManualMeasurementScreen(
         Text(
             text = stringResource(id = R.string.measurement_manual_description),
             color = OptiBikeColors.TextSecondary,
-            fontSize = 16.sp,
+            fontSize = 14.sp,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 8.dp),
@@ -130,168 +116,121 @@ fun ManualMeasurementScreen(
         )
 
         selectedBike?.let { bike ->
-            Spacer(modifier = Modifier.height(16.dp))
-            Text(
-                text = stringResource(id = R.string.selected_bike_label, bike.name),
-                color = OptiBikeColors.PrimaryCyan,
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Medium,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
-            )
+            Card(
+                modifier = Modifier.padding(top = 16.dp).fillMaxWidth(),
+                colors = CardDefaults.cardColors(containerColor = OptiBikeColors.SurfaceDark),
+                elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
+            ) {
+                Text(
+                    text = stringResource(id = R.string.selected_bike_label, bike.name),
+                    color = OptiBikeColors.PrimaryCyan,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Medium,
+                    modifier = Modifier.padding(12.dp).fillMaxWidth(),
+                    textAlign = TextAlign.Center
+                )
+            }
         }
         
         Spacer(modifier = Modifier.height(24.dp))
         
-        // Form Fields
+        // Form Fields - Dynamic based on step
         Column(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            // Basic fields (always visible)
-            
-            // Height
-            OutlinedTextField(
-                value = measurementInput.height?.toString() ?: "",
-                onValueChange = { 
-                    viewModel.updateHeight(it.toDoubleOrNull())
-                },
-                label = {
-                    Text(text = stringResource(id = R.string.form_height))
-                },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                singleLine = true,
-                modifier = Modifier.fillMaxWidth(),
-                colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(
-                    focusedBorderColor = OptiBikeColors.PrimaryCyan,
-                    unfocusedBorderColor = OptiBikeColors.DividerColor
+            // Helper to check if field should be shown
+            fun shouldShow(type: MeasurementType) = stepId == null || step?.requiredMeasurements?.contains(type) == true
+
+            // Height (always show as base)
+            if (shouldShow(MeasurementType.HEIGHT)) {
+                FormField(
+                    value = measurementInput.height?.toString() ?: "",
+                    label = stringResource(id = R.string.form_height),
+                    onValueChange = { viewModel.updateHeight(it.toDoubleOrNull()) }
                 )
-            )
+            }
             
-            // Inseam
-            OutlinedTextField(
-                value = measurementInput.inseam?.toString() ?: "",
-                onValueChange = { 
-                    viewModel.updateInseam(it.toDoubleOrNull())
-                },
-                label = {
-                    Text(text = stringResource(id = R.string.form_leg_length))
-                },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                singleLine = true,
-                modifier = Modifier.fillMaxWidth(),
-                colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(
-                    focusedBorderColor = OptiBikeColors.PrimaryCyan,
-                    unfocusedBorderColor = OptiBikeColors.DividerColor
+            // Inseam (always show as base)
+            if (shouldShow(MeasurementType.INSEAM)) {
+                FormField(
+                    value = measurementInput.inseam?.toString() ?: "",
+                    label = stringResource(id = R.string.form_leg_length),
+                    onValueChange = { viewModel.updateInseam(it.toDoubleOrNull()) }
                 )
-            )
+            }
             
-            // Bike Type
-            ExposedDropdownMenuBox(
-                expanded = bikeTypeExpanded,
-                onExpandedChange = { bikeTypeExpanded = !bikeTypeExpanded }
-            ) {
-                OutlinedTextField(
-                    value = when (measurementInput.bikeType) {
-                        BikeType.ROAD -> stringResource(id = R.string.form_bike_type_road)
-                        BikeType.GRAVEL -> stringResource(id = R.string.form_bike_type_gravel)
-                    },
-                    onValueChange = {},
-                    readOnly = true,
-                    label = { Text(text = stringResource(id = R.string.form_bike_type)) },
-                    trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = bikeTypeExpanded) },
-                    modifier = Modifier.fillMaxWidth().menuAnchor(),
-                    colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = OptiBikeColors.PrimaryCyan,
-                        unfocusedBorderColor = OptiBikeColors.DividerColor
-                    )
-                )
-                
-                ExposedDropdownMenu(
+            // Bike Type (only if no bike selected or manual mode)
+            if (selectedBike == null && shouldShow(MeasurementType.BIKE_TYPE)) {
+                ExposedDropdownMenuBox(
                     expanded = bikeTypeExpanded,
-                    onDismissRequest = { bikeTypeExpanded = false }
+                    onExpandedChange = { bikeTypeExpanded = !bikeTypeExpanded }
                 ) {
-                    DropdownMenuItem(
-                        text = { Text(stringResource(id = R.string.form_bike_type_road)) },
-                        onClick = {
-                            viewModel.updateBikeType(BikeType.ROAD)
-                            bikeTypeExpanded = false
-                        }
+                    OutlinedTextField(
+                        value = when (measurementInput.bikeType) {
+                            BikeType.ROAD -> stringResource(id = R.string.form_bike_type_road)
+                            BikeType.GRAVEL -> stringResource(id = R.string.form_bike_type_gravel)
+                        },
+                        onValueChange = {},
+                        readOnly = true,
+                        label = { Text(text = stringResource(id = R.string.form_bike_type)) },
+                        trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = bikeTypeExpanded) },
+                        modifier = Modifier.fillMaxWidth().menuAnchor(),
+                        colors = textFieldColors()
                     )
-                    DropdownMenuItem(
-                        text = { Text(stringResource(id = R.string.form_bike_type_gravel)) },
-                        onClick = {
-                            viewModel.updateBikeType(BikeType.GRAVEL)
-                            bikeTypeExpanded = false
-                        }
-                    )
+                    
+                    ExposedDropdownMenu(
+                        expanded = bikeTypeExpanded,
+                        onDismissRequest = { bikeTypeExpanded = false }
+                    ) {
+                        DropdownMenuItem(
+                            text = { Text(stringResource(id = R.string.form_bike_type_road)) },
+                            onClick = {
+                                viewModel.updateBikeType(BikeType.ROAD)
+                                bikeTypeExpanded = false
+                            }
+                        )
+                        DropdownMenuItem(
+                            text = { Text(stringResource(id = R.string.form_bike_type_gravel)) },
+                            onClick = {
+                                viewModel.updateBikeType(BikeType.GRAVEL)
+                                bikeTypeExpanded = false
+                            }
+                        )
+                    }
                 }
             }
             
-            // Step-specific fields or All fields if no stepId
-            val showAll = stepId == null
-            
-            // Shoulder Width (Step 6)
-            if (showAll || step?.requiredMeasurements?.contains(MeasurementType.SHOULDER_WIDTH) == true) {
-                OutlinedTextField(
+            // Optional/Step-specific fields
+            if (shouldShow(MeasurementType.SHOULDER_WIDTH)) {
+                FormField(
                     value = measurementInput.shoulderWidth?.toString() ?: "",
-                    onValueChange = { viewModel.updateShoulderWidth(it.toDoubleOrNull()) },
-                    label = { Text(text = stringResource(id = R.string.form_shoulder_width)) },
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                    singleLine = true,
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = OptiBikeColors.PrimaryCyan,
-                        unfocusedBorderColor = OptiBikeColors.DividerColor
-                    )
+                    label = stringResource(id = R.string.form_shoulder_width),
+                    onValueChange = { viewModel.updateShoulderWidth(it.toDoubleOrNull()) }
                 )
             }
             
-            // Arm Length (Step 4)
-            if (showAll || step?.requiredMeasurements?.contains(MeasurementType.ARM_LENGTH) == true) {
-                OutlinedTextField(
+            if (shouldShow(MeasurementType.ARM_LENGTH)) {
+                FormField(
                     value = measurementInput.armLength?.toString() ?: "",
-                    onValueChange = { viewModel.updateArmLength(it.toDoubleOrNull()) },
-                    label = { Text(text = stringResource(id = R.string.form_arm_length)) },
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                    singleLine = true,
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = OptiBikeColors.PrimaryCyan,
-                        unfocusedBorderColor = OptiBikeColors.DividerColor
-                    )
+                    label = stringResource(id = R.string.form_arm_length),
+                    onValueChange = { viewModel.updateArmLength(it.toDoubleOrNull()) }
                 )
             }
             
-            // Current Saddle Height (Recommendations)
-            if (showAll || step?.requiredMeasurements?.contains(MeasurementType.SADDLE_HEIGHT) == true) {
-                OutlinedTextField(
+            if (shouldShow(MeasurementType.SADDLE_HEIGHT)) {
+                FormField(
                     value = measurementInput.currentSaddleHeight?.toString() ?: "",
-                    onValueChange = { viewModel.updateCurrentSaddleHeight(it.toDoubleOrNull()) },
-                    label = { Text(text = stringResource(id = R.string.form_saddle_height)) },
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                    singleLine = true,
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = OptiBikeColors.PrimaryCyan,
-                        unfocusedBorderColor = OptiBikeColors.DividerColor
-                    )
+                    label = stringResource(id = R.string.form_saddle_height),
+                    onValueChange = { viewModel.updateCurrentSaddleHeight(it.toDoubleOrNull()) }
                 )
             }
             
-            // Shoe Size (Step 7)
-            if (showAll || step?.requiredMeasurements?.contains(MeasurementType.SHOE_SIZE) == true) {
-                OutlinedTextField(
+            if (shouldShow(MeasurementType.SHOE_SIZE)) {
+                FormField(
                     value = measurementInput.shoeSize?.toString() ?: "",
-                    onValueChange = { viewModel.updateShoeSize(it.toIntOrNull()) },
-                    label = { Text(text = stringResource(id = R.string.form_shoe_size)) },
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                    singleLine = true,
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = OptiBikeColors.PrimaryCyan,
-                        unfocusedBorderColor = OptiBikeColors.DividerColor
-                    )
+                    label = stringResource(id = R.string.form_shoe_size),
+                    onValueChange = { viewModel.updateShoeSize(it.toIntOrNull()) }
                 )
             }
         }
@@ -314,7 +253,7 @@ fun ManualMeasurementScreen(
             )
         }
         
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(32.dp))
         
         // Calculate Button
         Button(
@@ -329,7 +268,7 @@ fun ManualMeasurementScreen(
             modifier = Modifier.fillMaxWidth().height(56.dp)
         ) {
             if (isLoading) {
-                CircularProgressIndicator(color = OptiBikeColors.BackgroundDark, modifier = Modifier.padding(8.dp))
+                CircularProgressIndicator(color = OptiBikeColors.BackgroundDark, modifier = Modifier.size(24.dp))
             } else {
                 Text(
                     text = stringResource(id = R.string.btn_calculate),
@@ -342,15 +281,46 @@ fun ManualMeasurementScreen(
         Spacer(modifier = Modifier.height(16.dp))
         
         // Cancel Button
-        Button(
+        TextButton(
             onClick = { navController.popBackStack() },
-            colors = ButtonDefaults.outlinedButtonColors(contentColor = OptiBikeColors.TextSecondary),
             modifier = Modifier.fillMaxWidth().height(48.dp)
         ) {
-            Text(text = stringResource(id = R.string.btn_cancel), fontSize = 16.sp)
+            Text(
+                text = stringResource(id = R.string.btn_cancel),
+                color = OptiBikeColors.TextSecondary,
+                fontSize = 16.sp
+            )
         }
     }
 }
+
+@Composable
+fun FormField(
+    value: String,
+    label: String,
+    onValueChange: (String) -> Unit
+) {
+    OutlinedTextField(
+        value = value,
+        onValueChange = onValueChange,
+        label = { Text(text = label) },
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+        singleLine = true,
+        modifier = Modifier.fillMaxWidth(),
+        colors = textFieldColors()
+    )
+}
+
+@Composable
+fun textFieldColors() = OutlinedTextFieldDefaults.colors(
+    focusedBorderColor = OptiBikeColors.PrimaryCyan,
+    unfocusedBorderColor = OptiBikeColors.CardStroke,
+    focusedLabelColor = OptiBikeColors.PrimaryCyan,
+    unfocusedLabelColor = OptiBikeColors.TextSecondary,
+    cursorColor = OptiBikeColors.PrimaryCyan,
+    focusedTextColor = OptiBikeColors.TextPrimary,
+    unfocusedTextColor = OptiBikeColors.TextPrimary
+)
 
 @Preview(showBackground = true)
 @Composable

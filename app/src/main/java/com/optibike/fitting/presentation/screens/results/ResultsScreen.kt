@@ -47,14 +47,19 @@ import com.optibike.fitting.presentation.viewmodel.CalculatorViewModel
 @Composable
 fun ResultsScreen(
     navController: NavController,
-    viewModel: CalculatorViewModel = hiltViewModel()
+    viewModel: CalculatorViewModel = hiltViewModel(),
+    measurementId: Long? = null
 ) {
     val results by viewModel.results.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
     
-    // Trigger calculation for the latest measurement on start
-    LaunchedEffect(Unit) {
-        viewModel.calculateLatest()
+    // Trigger calculation for the latest or specific measurement on start
+    LaunchedEffect(measurementId) {
+        if (measurementId != null) {
+            viewModel.loadMeasurementResults(measurementId)
+        } else {
+            viewModel.calculateLatest()
+        }
     }
     
     Column(

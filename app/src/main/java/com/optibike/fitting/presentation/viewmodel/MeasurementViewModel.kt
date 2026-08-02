@@ -139,7 +139,7 @@ class MeasurementViewModel @Inject constructor(
             _isLoading.value = true
             try {
                 val measurement = _measurementInput.value.toMeasurement()
-                measurementRepository.saveMeasurement(measurement)
+                val id = measurementRepository.saveMeasurement(measurement)
                 _saveSuccess.value = true
             } catch (e: Exception) {
                 _validationError.value = "Error saving measurement: ${e.message}"
@@ -147,6 +147,10 @@ class MeasurementViewModel @Inject constructor(
                 _isLoading.value = false
             }
         }
+    }
+
+    fun consumeSaveSuccess() {
+        _saveSuccess.value = false
     }
     
     // Reset form

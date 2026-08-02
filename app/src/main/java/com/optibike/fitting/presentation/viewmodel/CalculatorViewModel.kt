@@ -38,6 +38,42 @@ class CalculatorViewModel @Inject constructor(
     val error: StateFlow<String?> = _error.asStateFlow()
     
     /**
+     * Load results for a specific measurement ID
+     */
+    fun loadMeasurementResults(id: Long) {
+        viewModelScope.launch {
+            _isLoading.value = true
+            _error.value = null
+            try {
+                val measurement = measurementRepository.getMeasurementById(id)
+                if (measurement != null) {
+                    _measurement.value = measurement
+                    if (measurement.isComplete) {
+                        _results.value = MeasurementResults(
+                            saddleHeight = measurement.calculatedSaddleHeight ?: 0.0,
+                            saddleTilt = measurement.calculatedSaddleTilt ?: 0.0,
+                            saddleForeAft = measurement.calculatedSaddleForeAft ?: 0.0,
+                            handlebarHeight = measurement.calculatedHandlebarHeight ?: 0.0,
+                            saddleHandlebarDistance = measurement.calculatedSaddleHandlebarDistance ?: 0.0,
+                            handlebarWidth = measurement.calculatedHandlebarWidth ?: 0.0,
+                            cleatPosition = measurement.calculatedCleatPosition ?: 0.0,
+                            recommendations = BikeFittingFormulas.getLocalizedRecommendations(measurement)
+                        )
+                    } else {
+                        calculateParameters(measurement)
+                    }
+                } else {
+                    _error.value = "Measurement not found"
+                }
+            } catch (e: Exception) {
+                _error.value = "Error loading measurement: ${e.message}"
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+    /**
      * Calculate all parameters for the given measurement
      */
     fun calculateParameters(measurement: Measurement) {

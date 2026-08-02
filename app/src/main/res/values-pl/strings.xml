@@ -80,8 +80,6 @@
     <string name="form_bike_type_gravel">Gravel</string>
     <string name="form_bike_type_road">Road</string>
     <string name="form_saddle_height">Aktualna wysokość siodła (mm)</string>
-    <string name="form_frame_size">Rozmiar ramy (cm)</string>
-    <string name="form_crank_length">Długość korby (mm)</string>
     <string name="form_handlebar_height">Aktualna wysokość kierownicy (mm)</string>
     <string name="form_saddle_type">Typ siodła</string>
     <string name="form_handlebar_type">Typ kierownicy</string>
@@ -120,7 +118,7 @@
     <string name="results_handlebar_height">Wysokość kierownicy</string>
     <string name="results_saddle_handlebar_distance">Odległość siodło-kierownica</string>
     <string name="results_cockpit">Regulacja kokpitu</string>
-    <string name="results_cleat_position">Pozycja butów</string>
+    <string name="results_cleat_position">Pozycja bloków</string>
     <string name="results_no_results">Brak dostępnych wyników. Najpierw oblicz parametry.</string>
     <string name="results_detailed_parameters">Parametry szczegółowe</string>
     <string name="results_saddle_fore_aft">Pozycja siodła przód-tył</string>
@@ -130,12 +128,6 @@
     <string name="results_handlebar_width_desc">Zalecana szerokość kierownicy</string>
     <string name="results_cleat_position_desc">Pozycja względem osi pedału</string>
 
-    <!-- Reference Tables -->
-    <string name="table_saddle_height_title">Tabela referencyjna (Wzrost → Wysokość siodła)</string>
-    <string name="table_height">Wzrost (cm)</string>
-    <string name="table_road">Road (mm)</string>
-    <string name="table_gravel">Gravel (mm)</string>
-
     <!-- History -->
     <string name="history_title">Historia pomiarów</string>
     <string name="history_empty">Brak pomiarów. Uzupełnij pierwszy bike fitting!</string>
@@ -143,6 +135,15 @@
     <string name="history_delete_all">Usuń wszystko</string>
     <string name="history_delete_confirmation">Czy na pewno chcesz usunąć ten pomiar?</string>
     <string name="history_delete_all_confirmation">Czy na pewno chcesz usunąć wszystkie pomiary?</string>
+    <string name="history_measurement_label">Pomiar #%1$d</string>
+    <string name="history_bike_label">Rower: %1$s</string>
+    <string name="history_export_pdf">Eksportuj PDF</string>
+    <string name="history_delete_title">Usuń pomiar</string>
+    <string name="history_delete_message">Czy na pewno chcesz usunąć ten pomiar?</string>
+    <string name="history_create_new">Stwórz nowy pomiar</string>
+    <string name="history_height_label">Wzrost</string>
+    <string name="history_inseam_label">Noga</string>
+    <string name="history_saddle_label">Siodło</string>
 
     <!-- Settings -->
     <string name="settings_title">Ustawienia</string>
@@ -203,8 +204,8 @@
     <string name="error_title">Błąd</string>
     <string name="error_required_field">To pole jest wymagane</string>
     <string name="error_invalid_value">Nieprawidłowa wartość</string>
-    <string name="error_height_range">Wzrost musi być między 100-220 cm</string>
-    <string name="error_leg_length_range">Długość nogi musi być między 60-120 cm</string>
+    <string name="error_height_range">Wzrost musi być między 50-230 cm</string>
+    <string name="error_leg_length_range">Długość nogi musi być między 30-120 cm</string>
     <string name="error_shoulder_width_range">Szerokość barków musi być między 30-60 cm</string>
     <string name="error_storage_full">Niewystarczająca ilość miejsca. Usuń niepotrzebne pliki.</string>
     <string name="error_pdf_generation">Nie udało się wygenerować PDF. Spróbuj ponownie.</string>

@@ -193,50 +193,43 @@ private fun ResultsCard(
             // Saddle Height
             ResultRow(
                 label = stringResource(id = R.string.results_saddle_height),
-                value = viewModel.getFormattedResult(results.saddleHeight),
-                unit = "mm"
+                value = viewModel.getFormattedResult(results.saddleHeight)
             )
             
             // Saddle Tilt
             ResultRow(
                 label = stringResource(id = R.string.results_saddle_tilt),
-                value = viewModel.getFormattedAngle(results.saddleTilt),
-                unit = ""
+                value = viewModel.getFormattedAngle(results.saddleTilt)
             )
             
             // Saddle Fore-Aft
             ResultRow(
                 label = stringResource(id = R.string.results_saddle_fore_aft),
-                value = viewModel.getFormattedResult(results.saddleForeAft),
-                unit = "mm"
+                value = viewModel.getFormattedResult(results.saddleForeAft)
             )
             
             // Handlebar Height
             ResultRow(
                 label = stringResource(id = R.string.results_handlebar_height),
-                value = viewModel.getFormattedResult(results.handlebarHeight),
-                unit = "mm"
+                value = viewModel.getFormattedResult(results.handlebarHeight)
             )
             
             // Saddle-Handlebar Distance
             ResultRow(
                 label = stringResource(id = R.string.results_saddle_handlebar_distance),
-                value = viewModel.getFormattedResult(results.saddleHandlebarDistance),
-                unit = "mm"
+                value = viewModel.getFormattedResult(results.saddleHandlebarDistance)
             )
             
             // Handlebar Width
             ResultRow(
                 label = stringResource(id = R.string.results_handlebar_width),
-                value = viewModel.getFormattedResult(results.handlebarWidth),
-                unit = "mm"
+                value = viewModel.getFormattedResult(results.handlebarWidth)
             )
             
             // Cleat Position
             ResultRow(
                 label = stringResource(id = R.string.results_cleat_position),
-                value = viewModel.getFormattedResult(results.cleatPosition),
-                unit = "mm"
+                value = viewModel.getFormattedResult(results.cleatPosition)
             )
             
             // Recommendations
@@ -279,8 +272,7 @@ private fun parseRecommendation(key: String): String {
 @Composable
 private fun ResultRow(
     label: String,
-    value: String,
-    unit: String
+    value: String
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -294,7 +286,7 @@ private fun ResultRow(
         )
         
         Text(
-            text = "$value $unit",
+            text = value,
             color = OptiBikeColors.PrimaryCyan,
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold

@@ -171,7 +171,10 @@ fun BikeTypeOption(
         ),
         border = if (!isSelected) androidx.compose.foundation.BorderStroke(1.dp, OptiBikeColors.CardStroke) else null
     ) {
-        Text(text = type.name)
+        Text(
+            text = if (type == BikeType.ROAD) stringResource(id = R.string.form_bike_type_road)
+                   else stringResource(id = R.string.form_bike_type_gravel)
+        )
     }
 }
 
