@@ -16,7 +16,7 @@ android {
 
     defaultConfig {
         applicationId = "com.void.bikefitting"
-        minSdk = 26  // Required for Apache PDFBox 3.0.0 (MethodHandle support)
+        minSdk = 16  // Support for Android 4.1+ (Jelly Bean)
         targetSdk = 34
         versionCode = 1
         versionName = "1.0.0"
@@ -112,8 +112,8 @@ dependencies {
     implementation("androidx.camera:camera-lifecycle:1.3.0")
     implementation("androidx.camera:camera-view:1.3.0")
 
-    // PDF Export (using Apache PDFBox - open source alternative)
-    implementation("org.apache.pdfbox:pdfbox:3.0.0")
+    // PDF Export (using Apache PDFBox 2.0.27 - supports API 16+)
+    implementation("org.apache.pdfbox:pdfbox:2.0.27")
 
     // Testing
     testImplementation("junit:junit:4.13.2")
