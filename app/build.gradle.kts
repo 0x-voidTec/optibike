@@ -16,7 +16,7 @@ android {
 
     defaultConfig {
         applicationId = "com.void.bikefitting"
-        minSdk = 16  // Support for Android 4.1+ (Jelly Bean)
+        minSdk = 21  // Android 5.0+ Lollipop (required by Hilt Navigation Compose, CameraX, Compose)
         targetSdk = 34
         versionCode = 1
         versionName = "1.0.0"
@@ -112,7 +112,7 @@ dependencies {
     implementation("androidx.camera:camera-lifecycle:1.3.0")
     implementation("androidx.camera:camera-view:1.3.0")
 
-    // PDF Export (using Apache PDFBox 2.0.27 - supports API 16+)
+    // PDF Export (using Apache PDFBox 2.0.27 - supports API 21+)
     implementation("org.apache.pdfbox:pdfbox:2.0.27")
 
     // Testing
