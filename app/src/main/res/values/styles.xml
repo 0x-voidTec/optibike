@@ -64,13 +64,13 @@
     <style name="CardStyle" parent="Widget.Material3.Card">
         <item name="android:background">@color/card_background</item>
         <item name="android:strokeColor">@color/card_stroke</item>
-        <item name="android:strokeWidth">1dp</item>
+        <item name="android:strokeWidth">1</item>
     </style>
 
     <!-- Input Field Styles -->
     <style name="InputFieldStyle" parent="Widget.Material3.TextInputLayout.OutlinedBox">
         <item name="android:textColor">@color/text_primary</item>
-        <item name="android:hintTextColor">@color/text_secondary</item>
+        <item name="android:textColorHint">@color/text_secondary</item>
         <item name="boxStrokeColor">@color/primary_cyan</item>
         <item name="boxBackgroundColor">@color/surface_dark</item>
     </style>
