@@ -70,7 +70,8 @@ android {
 }
 
 // Dependencies
-val composeBom = platform("androidx.compose:compose-bom:2024.02.00")
+val composeBom: org.gradle.api.artifacts.PlatformDependency = 
+    org.gradle.api.artifacts.VersionCatalogsExtension.platform("androidx.compose:compose-bom:2024.02.00")
 
 dependencies {
     // Kotlin
