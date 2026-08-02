@@ -2,26 +2,19 @@ package com.void.bikefitting.domain.utils
 
 import android.content.Context
 import android.os.Environment
-import com.itextpdf.kernel.colors.ColorConstants
-import com.itextpdf.kernel.font.PdfFont
-import com.itextpdf.kernel.font.PdfFontFactory
-import com.itextpdf.kernel.pdf.PdfDocument
-import com.itextpdf.kernel.pdf.PdfWriter
-import com.itextpdf.layout.Document
-import com.itextpdf.layout.borders.SolidBorder
-import com.itextpdf.layout.element.Cell
-import com.itextpdf.layout.element.Paragraph
-import com.itextpdf.layout.element.Table
-import com.itextpdf.layout.properties.TextAlignment
-import com.itextpdf.layout.properties.UnitValue
 import com.void.bikefitting.domain.model.Measurement
 import com.void.bikefitting.domain.model.MeasurementResults
+import org.apache.pdfbox.pdmodel.PDDocument
+import org.apache.pdfbox.pdmodel.PDPage
+import org.apache.pdfbox.pdmodel.PDPageContentStream
+import org.apache.pdfbox.pdmodel.common.PDRectangle
+import org.apache.pdfbox.pdmodel.font.PDType1Font
 import java.io.File
 import java.io.FileOutputStream
 import java.time.format.DateTimeFormatter
 
 /**
- * PDF Generator
+ * PDF Generator using Apache PDFBox
  * Generates PDF reports for bike fitting measurements
  * 
  * @author Vibe Code (AI Agent)
@@ -30,12 +23,11 @@ import java.time.format.DateTimeFormatter
 class PdfGenerator {
     
     companion object {
-        private const val FONT_REGULAR = "Helvetica"
-        private const val FONT_BOLD = "Helvetica-Bold"
-        private val CYAN_COLOR = com.itextpdf.kernel.colors.DeviceRgb(0, 255, 255)
-        private val MAGENTA_COLOR = com.itextpdf.kernel.colors.DeviceRgb(255, 0, 255)
-        private val DARK_COLOR = com.itextpdf.kernel.colors.DeviceRgb(10, 10, 15)
-        private val TEXT_COLOR = com.itextpdf.kernel.colors.DeviceRgb(224, 224, 224)
+        private const val FONT_SIZE_TITLE = 16f
+        private const val FONT_SIZE_NORMAL = 12f
+        private const val FONT_SIZE_SMALL = 10f
+        private const val MARGIN = 50f
+        private const val LINE_SPACING = 15f
     }
     
     /**
@@ -50,21 +42,113 @@ class PdfGenerator {
             // Create output file
             val pdfFile = createOutputFile(context, "OptiBike_Report_${measurement.id}.pdf")
             
-            // Initialize PDF writer and document
-            val writer = PdfWriter(FileOutputStream(pdfFile))
-            val pdfDoc = PdfDocument(writer)
-            val document = Document(pdfDoc)
+            // Create PDF document
+            val document = PDDocument()
+            val page = PDPage(PDRectangle.A4)
+            document.addPage(page)
             
-            // Add content
-            addHeader(document)
-            addMeasurementInfo(document, measurement)
-            addResultsTable(document, results)
-            addRecommendations(document, results.recommendations)
-            addFooter(document)
+            // Create content stream
+            val contentStream = PDPageContentStream(document, page)
             
-            // Close document
+            // Start writing content
+            var yPosition = page.mediaBox.height - MARGIN
+            
+            // Title
+            writeText(contentStream, "OptiBike - Bike Fitting Report", 
+                MARGIN, yPosition, FONT_SIZE_TITLE * 1.5f, PDType1Font.HELVETICA_BOLD)
+            yPosition -= LINE_SPACING * 1.5f
+            
+            writeText(contentStream, "Professional Bike Fitting Analysis", 
+                MARGIN, yPosition, FONT_SIZE_TITLE, PDType1Font.HELVETICA)
+            yPosition -= LINE_SPACING * 2f
+            
+            // Divider line
+            drawHorizontalLine(contentStream, MARGIN, page.mediaBox.width - MARGIN, yPosition)
+            yPosition -= LINE_SPACING * 2f
+            
+            // Measurement Information
+            writeText(contentStream, "Measurement Information", 
+                MARGIN, yPosition, FONT_SIZE_TITLE, PDType1Font.HELVETICA_BOLD)
+            yPosition -= LINE_SPACING * 1.5f
+            
+            writeText(contentStream, "Bike Type: ${measurement.bikeType.name}", 
+                MARGIN, yPosition, FONT_SIZE_NORMAL, PDType1Font.HELVETICA)
+            yPosition -= LINE_SPACING
+            
+            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+            writeText(contentStream, "Date: ${measurement.timestamp.format(formatter)}", 
+                MARGIN, yPosition, FONT_SIZE_NORMAL, PDType1Font.HELVETICA)
+            yPosition -= LINE_SPACING
+            
+            measurement.height?.let { height ->
+                writeText(contentStream, "Height: ${height}cm", 
+                    MARGIN, yPosition, FONT_SIZE_NORMAL, PDType1Font.HELVETICA)
+                yPosition -= LINE_SPACING
+            }
+            
+            measurement.inseam?.let { inseam ->
+                writeText(contentStream, "Inseam: ${inseam}cm", 
+                    MARGIN, yPosition, FONT_SIZE_NORMAL, PDType1Font.HELVETICA)
+                yPosition -= LINE_SPACING
+            }
+            
+            yPosition -= LINE_SPACING
+            
+            // Results
+            writeText(contentStream, "Bike Fitting Results", 
+                MARGIN, yPosition, FONT_SIZE_TITLE, PDType1Font.HELVETICA_BOLD)
+            yPosition -= LINE_SPACING * 1.5f
+            
+            writeText(contentStream, "Saddle Height: ${results.saddleHeight.toInt()}mm", 
+                MARGIN, yPosition, FONT_SIZE_NORMAL, PDType1Font.HELVETICA)
+            yPosition -= LINE_SPACING
+            
+            writeText(contentStream, "Saddle Tilt: ${results.saddleTilt}°", 
+                MARGIN, yPosition, FONT_SIZE_NORMAL, PDType1Font.HELVETICA)
+            yPosition -= LINE_SPACING
+            
+            writeText(contentStream, "Handlebar Height: ${results.handlebarHeight.toInt()}mm", 
+                MARGIN, yPosition, FONT_SIZE_NORMAL, PDType1Font.HELVETICA)
+            yPosition -= LINE_SPACING
+            
+            writeText(contentStream, "Saddle-Handlebar Distance: ${results.saddleHandlebarDistance.toInt()}mm", 
+                MARGIN, yPosition, FONT_SIZE_NORMAL, PDType1Font.HELVETICA)
+            yPosition -= LINE_SPACING
+            
+            writeText(contentStream, "Handlebar Width: ${results.handlebarWidth.toInt()}mm", 
+                MARGIN, yPosition, FONT_SIZE_NORMAL, PDType1Font.HELVETICA)
+            yPosition -= LINE_SPACING
+            
+            writeText(contentStream, "Cleat Position: ${results.cleatPosition.toInt()}mm", 
+                MARGIN, yPosition, FONT_SIZE_NORMAL, PDType1Font.HELVETICA)
+            yPosition -= LINE_SPACING
+            
+            // Recommendations
+            if (results.recommendations.isNotEmpty()) {
+                yPosition -= LINE_SPACING
+                writeText(contentStream, "Recommendations:", 
+                    MARGIN, yPosition, FONT_SIZE_TITLE, PDType1Font.HELVETICA_BOLD)
+                yPosition -= LINE_SPACING * 1.5f
+                
+                results.recommendations.forEach { recommendation ->
+                    writeText(contentStream, "• $recommendation", 
+                        MARGIN + 20, yPosition, FONT_SIZE_SMALL, PDType1Font.HELVETICA)
+                    yPosition -= LINE_SPACING
+                }
+            }
+            
+            // Footer
+            yPosition -= LINE_SPACING * 2f
+            drawHorizontalLine(contentStream, MARGIN, page.mediaBox.width - MARGIN, yPosition)
+            yPosition -= LINE_SPACING
+            
+            writeText(contentStream, "Generated by OptiBike - Professional Bike Fitting App", 
+                MARGIN, yPosition, FONT_SIZE_SMALL, PDType1Font.HELVETICA_ITALIC)
+            
+            // Close content stream and document
+            contentStream.close()
+            document.save(pdfFile)
             document.close()
-            pdfDoc.close()
             
             pdfFile
         } catch (e: Exception) {
@@ -88,241 +172,36 @@ class PdfGenerator {
     }
     
     /**
-     * Add header to PDF
+     * Write text to PDF content stream
      */
-    private fun addHeader(document: Document) {
-        val titleFont = PdfFontFactory.createFont(FONT_BOLD)
-        val subtitleFont = PdfFontFactory.createFont(FONT_REGULAR)
-        
-        // Title
-        val title = Paragraph("OptiBike - Bike Fitting Report")
-            .setFont(titleFont)
-            .setFontSize(24f)
-            .setTextAlignment(TextAlignment.CENTER)
-            .setFontColor(CYAN_COLOR)
-            .setMarginBottom(10f)
-        
-        document.add(title)
-        
-        // Subtitle
-        val subtitle = Paragraph("Professional Bike Fitting Analysis")
-            .setFont(subtitleFont)
-            .setFontSize(14f)
-            .setTextAlignment(TextAlignment.CENTER)
-            .setFontColor(TEXT_COLOR)
-            .setMarginBottom(20f)
-        
-        document.add(subtitle)
-        
-        // Divider
-        document.add(Paragraph(" ").setBorder(SolidBorder(CYAN_COLOR, 1f)))
-        document.add(Paragraph(" "))
-    }
-    
-    /**
-     * Add measurement information section
-     */
-    private fun addMeasurementInfo(document: Document, measurement: Measurement) {
-        val font = PdfFontFactory.createFont(FONT_REGULAR)
-        val boldFont = PdfFontFactory.createFont(FONT_BOLD)
-        
-        // Section title
-        val sectionTitle = Paragraph("Measurement Information")
-            .setFont(boldFont)
-            .setFontSize(18f)
-            .setFontColor(CYAN_COLOR)
-            .setMarginBottom(10f)
-        
-        document.add(sectionTitle)
-        
-        // Create table for measurement info
-        val table = Table(UnitValue.createPercentArray(floatArrayOf(30f, 70f)))
-            .setWidth(UnitValue.createPercentValue(100f))
-        
-        // Bike Type
-        addTableRow(table, "Bike Type:", measurement.bikeType.name, font, boldFont)
-        
-        // Date
-        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
-        addTableRow(table, "Date:", measurement.timestamp.format(formatter), font, boldFont)
-        
-        // Height
-        measurement.height?.let { height ->
-            addTableRow(table, "Height:", "${height} cm", font, boldFont)
-        }
-        
-        // Inseam
-        measurement.inseam?.let { inseam ->
-            addTableRow(table, "Inseam:", "${inseam} cm", font, boldFont)
-        }
-        
-        // Shoulder Width
-        measurement.shoulderWidth?.let { shoulderWidth ->
-            addTableRow(table, "Shoulder Width:", "${shoulderWidth} cm", font, boldFont)
-        }
-        
-        // Arm Length
-        measurement.armLength?.let { armLength ->
-            addTableRow(table, "Arm Length:", "${armLength} cm", font, boldFont)
-        }
-        
-        document.add(table)
-        document.add(Paragraph(" "))
-    }
-    
-    /**
-     * Add results table to PDF
-     */
-    private fun addResultsTable(document: Document, results: MeasurementResults) {
-        val font = PdfFontFactory.createFont(FONT_REGULAR)
-        val boldFont = PdfFontFactory.createFont(FONT_BOLD)
-        
-        // Section title
-        val sectionTitle = Paragraph("Bike Fitting Results")
-            .setFont(boldFont)
-            .setFontSize(18f)
-            .setFontColor(CYAN_COLOR)
-            .setMarginBottom(10f)
-        
-        document.add(sectionTitle)
-        
-        // Create table for results
-        val table = Table(UnitValue.createPercentArray(floatArrayOf(50f, 30f, 20f)))
-            .setWidth(UnitValue.createPercentValue(100f))
-        
-        // Header row
-        addHeaderRow(table, listOf("Parameter", "Value", "Unit"), boldFont)
-        
-        // Results rows
-        addResultRow(table, "Saddle Height", results.saddleHeight, "mm", font)
-        addResultRow(table, "Saddle Tilt", results.saddleTilt, "°", font)
-        addResultRow(table, "Saddle Fore-Aft", results.saddleForeAft, "mm", font)
-        addResultRow(table, "Handlebar Height", results.handlebarHeight, "mm", font)
-        addResultRow(table, "Saddle-Handlebar Distance", results.saddleHandlebarDistance, "mm", font)
-        addResultRow(table, "Handlebar Width", results.handlebarWidth, "mm", font)
-        addResultRow(table, "Cleat Position", results.cleatPosition, "mm", font)
-        
-        document.add(table)
-        document.add(Paragraph(" "))
-    }
-    
-    /**
-     * Add recommendations section
-     */
-    private fun addRecommendations(document: Document, recommendations: List<String>) {
-        if (recommendations.isEmpty()) return
-        
-        val font = PdfFontFactory.createFont(FONT_REGULAR)
-        val boldFont = PdfFontFactory.createFont(FONT_BOLD)
-        
-        // Section title
-        val sectionTitle = Paragraph("Recommendations")
-            .setFont(boldFont)
-            .setFontSize(18f)
-            .setFontColor(MAGENTA_COLOR)
-            .setMarginBottom(10f)
-        
-        document.add(sectionTitle)
-        
-        // Add each recommendation as a bullet point
-        recommendations.forEachIndexed { index, recommendation ->
-            val bulletPoint = Paragraph("• $recommendation")
-                .setFont(font)
-                .setFontSize(12f)
-                .setFontColor(TEXT_COLOR)
-                .setMarginLeft(10f)
-                .setMarginBottom(5f)
-            document.add(bulletPoint)
-        }
-        
-        document.add(Paragraph(" "))
-    }
-    
-    /**
-     * Add footer to PDF
-     */
-    private fun addFooter(document: Document) {
-        val font = PdfFontFactory.createFont(FONT_REGULAR)
-        
-        val footer = Paragraph("Generated by OptiBike - Professional Bike Fitting App")
-            .setFont(font)
-            .setFontSize(10f)
-            .setTextAlignment(TextAlignment.CENTER)
-            .setFontColor(TEXT_COLOR)
-            .setMarginTop(20f)
-        
-        document.add(footer)
-    }
-    
-    /**
-     * Helper function to add a table row
-     */
-    private fun addTableRow(
-        table: Table,
-        label: String,
-        value: String,
-        font: PdfFont,
-        boldFont: PdfFont
+    private fun writeText(
+        contentStream: PDPageContentStream,
+        text: String,
+        x: Float,
+        y: Float,
+        fontSize: Float,
+        font: PDType1Font
     ) {
-        val labelCell = Cell()
-            .add(Paragraph(label).setFont(boldFont).setFontSize(12f).setFontColor(TEXT_COLOR))
-            .setBorder(SolidBorder(ColorConstants.WHITE, 0.5f))
-            .setPadding(5f)
-        
-        val valueCell = Cell()
-            .add(Paragraph(value).setFont(font).setFontSize(12f).setFontColor(CYAN_COLOR))
-            .setBorder(SolidBorder(ColorConstants.WHITE, 0.5f))
-            .setPadding(5f)
-        
-        table.addCell(labelCell)
-        table.addCell(valueCell)
+        contentStream.beginText()
+        contentStream.setFont(font, fontSize)
+        contentStream.newLineAtOffset(x, y)
+        contentStream.showText(text)
+        contentStream.endText()
     }
     
     /**
-     * Helper function to add a header row to table
+     * Draw horizontal line
      */
-    private fun addHeaderRow(
-        table: Table,
-        headers: List<String>,
-        boldFont: PdfFont
+    private fun drawHorizontalLine(
+        contentStream: PDPageContentStream,
+        xStart: Float,
+        xEnd: Float,
+        y: Float
     ) {
-        headers.forEach { header ->
-            val cell = Cell()
-                .add(Paragraph(header).setFont(boldFont).setFontSize(12f).setFontColor(CYAN_COLOR))
-                .setBorder(SolidBorder(CYAN_COLOR, 1f))
-                .setPadding(5f)
-                .setBackgroundColor(DARK_COLOR)
-            table.addCell(cell)
-        }
-    }
-    
-    /**
-     * Helper function to add a result row to table
-     */
-    private fun addResultRow(
-        table: Table,
-        parameter: String,
-        value: Double,
-        unit: String,
-        font: PdfFont
-    ) {
-        val paramCell = Cell()
-            .add(Paragraph(parameter).setFont(font).setFontSize(11f).setFontColor(TEXT_COLOR))
-            .setBorder(SolidBorder(ColorConstants.WHITE, 0.5f))
-            .setPadding(5f)
-        
-        val valueCell = Cell()
-            .add(Paragraph(String.format("%.1f", value)).setFont(font).setFontSize(11f).setFontColor(CYAN_COLOR))
-            .setBorder(SolidBorder(ColorConstants.WHITE, 0.5f))
-            .setPadding(5f)
-        
-        val unitCell = Cell()
-            .add(Paragraph(unit).setFont(font).setFontSize(11f).setFontColor(TEXT_COLOR))
-            .setBorder(SolidBorder(ColorConstants.WHITE, 0.5f))
-            .setPadding(5f)
-        
-        table.addCell(paramCell)
-        table.addCell(valueCell)
-        table.addCell(unitCell)
+        contentStream.setStrokingColor(200, 200, 200)
+        contentStream.setLineWidth(0.5f)
+        contentStream.moveTo(xStart, y)
+        contentStream.lineTo(xEnd, y)
+        contentStream.stroke()
     }
 }
