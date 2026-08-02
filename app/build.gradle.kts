@@ -69,10 +69,6 @@ android {
     }
 }
 
-// Dependencies
-val composeBom: org.gradle.api.artifacts.PlatformDependency = 
-    org.gradle.api.artifacts.VersionCatalogsExtension.platform("androidx.compose:compose-bom:2024.02.00")
-
 dependencies {
     // Kotlin
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.20")
@@ -84,8 +80,8 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
 
-    // Jetpack Compose
-    implementation(composeBom)
+    // Jetpack Compose (with BOM)
+    implementation(platform("androidx.compose:compose-bom:2024.02.00"))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
