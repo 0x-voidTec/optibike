@@ -11,11 +11,11 @@ plugins {
 }
 
 android {
-    namespace = "com.void.bikefitting"
+    namespace = "com.optibike.fitting"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.void.bikefitting"
+        applicationId = "com.optibike.fitting"
         minSdk = 21  // Android 5.0+ Lollipop (required by Hilt Navigation Compose, CameraX, Compose)
         targetSdk = 34
         versionCode = 1
@@ -60,6 +60,9 @@ android {
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += "/META-INF/DEPENDENCIES"
+            excludes += "/META-INF/LICENSE"
+            excludes += "/META-INF/NOTICE"
         }
     }
 
@@ -105,6 +108,7 @@ dependencies {
     // ARCore (Optional - for AR measurements)
     implementation("com.google.ar:core:1.40.0")
     implementation("com.google.ar.sceneform:core:1.17.1")
+    implementation("com.google.ar.sceneform.ux:sceneform-ux:1.17.1")
 
     // CameraX (Optional - for AR measurements)
     implementation("androidx.camera:camera-core:1.3.0")

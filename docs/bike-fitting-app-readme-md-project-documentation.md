@@ -126,7 +126,7 @@ bike-fitting-app/
 ├── app/
 │   ├── src/
 │   │   ├── main/
-│   │   │   ├── java/com/void/bikefitting/
+│   │   │   ├── java/com/optibike/fitting/
 │   │   │   │   ├── di/                  # Hilt Modules
 │   │   │   │   │   ├── AppModule.kt
 │   │   │   │   │   └── RepositoryModule.kt
@@ -323,7 +323,7 @@ app/build/outputs/apk/release/app-release.apk
    ```
 2. **Run:**
    ```bash
-   adb shell am start -n com.void.bikefitting/.MainActivity
+   adb shell am start -n com.optibike.fitting/.MainActivity
    ```
 
 ### **📲 Deploying to Google Play**

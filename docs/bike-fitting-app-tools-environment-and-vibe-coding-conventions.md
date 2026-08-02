@@ -68,7 +68,7 @@ bike-fitting-app/
 ├── app/
 │   ├── src/
 │   │   ├── main/
-│   │   │   ├── java/com/void/bikefitting/
+│   │   │   ├── java/com/optibike/fitting/
 │   │   │   │   ├── di/                  # Hilt Modules
 │   │   │   │   │   ├── AppModule.kt
 │   │   │   │   │   └── RepositoryModule.kt
@@ -181,11 +181,11 @@ plugins {
 }
 
 android {
-    namespace = "com.void.bikefitting"
+    namespace = "com.optibike.fitting"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.void.bikefitting"
+        applicationId = "com.optibike.fitting"
         minSdk = 34  // Android 17
         targetSdk = 34
         versionCode = 1
@@ -322,7 +322,7 @@ dependencies {
   - **Classes/Interfaces:** `PascalCase` (e.g., `MeasurementRepository`).
   - **Variables/Methods:** `camelCase` (e.g., `calculateSaddleHeight`).
   - **Constants:** `UPPER_SNAKE_CASE` (e.g., `MAX_SADDLE_HEIGHT`).
-  - **Packages:** `com.void.bikefitting.[layer]` (e.g., `com.void.bikefitting.domain.usecase`).
+  - **Packages:** `com.optibike.fitting.[layer]` (e.g., `com.optibike.fitting.domain.usecase`).
 - **Formatting:**
   - **Indentation:** 4 spaces (not tabs).
   - **Line Length:** Max **120 characters**.

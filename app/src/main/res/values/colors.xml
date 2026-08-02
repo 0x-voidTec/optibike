@@ -46,8 +46,8 @@
     <color name="divider_color">#333333</color>
     
     <!-- App Colors -->
-    <color name="colorPrimary">@color/primary_cyan</color>
-    <color name="colorPrimaryDark">@color/primary_magenta</color>
-    <color name="colorAccent">@color/neon_green</color>
-    <color name="colorBackground">@color/background_dark</color>
+    <color name="app_primary">@color/primary_cyan</color>
+    <color name="app_primary_dark">@color/primary_magenta</color>
+    <color name="app_accent">@color/neon_green</color>
+    <color name="app_background">@color/background_dark</color>
 </resources>

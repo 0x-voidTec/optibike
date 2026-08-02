@@ -31,11 +31,8 @@
             </intent-filter>
         </activity>
 
-        <!-- ARCore Activity (for AR measurements) -->
-        <activity
-            android:name=".ar.ARMeasurementActivity"
-            android:exported="false"
-            android:theme="@style/Theme.OptiBike" />
+        <!-- AR Measurement Screen (Compose-based, so it uses MainActivity usually, but keeping this as placeholder if needed or removing if unused) -->
+        <!-- Activity for AR was not found in source, removing ghost reference -->
 
         <!-- File provider for PDF export -->
         <provider

@@ -198,7 +198,7 @@ optibike/
 │   │   └── optibike_logo_3.svg          # Logo Concept 3: Hexagonal
 │   └── src/
 │       └── main/
-│           ├── java/com/void/bikefitting/ # Kotlin source code
+│           ├── java/com/optibike/fitting/ # Kotlin source code
 │           │   ├── di/                  # Hilt Dependency Injection Modules
 │           │   │   ├── AppModule.kt
 │           │   │   └── RepositoryModule.kt
@@ -457,7 +457,7 @@ All reference tables are based on **industry-standard bike fitting practices** f
 
 ### **🔹 Unit Tests (JUnit 5)**
 
-**Location:** `app/src/test/java/com/void/bikefitting/`
+**Location:** `app/src/test/java/com/optibike/fitting/`
 
 **Example:**
 ```kotlin
@@ -493,7 +493,7 @@ class BikeFittingFormulasTest {
 
 ### **🔹 UI Tests (Espresso + Compose)**
 
-**Location:** `app/src/androidTest/java/com/void/bikefitting/`
+**Location:** `app/src/androidTest/java/com/optibike/fitting/`
 
 **Example (Compose):**
 ```kotlin

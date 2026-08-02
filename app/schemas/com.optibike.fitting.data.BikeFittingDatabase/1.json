@@ -1,0 +1,166 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "0f5b53a12fc92e1bf8fffd616b5cbff2",
+    "entities": [
+      {
+        "tableName": "measurements",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `userId` TEXT NOT NULL, `bikeType` TEXT NOT NULL, `height` REAL, `inseam` REAL, `shoulderWidth` REAL, `armLength` REAL, `torsoLength` REAL, `frameSize` REAL, `currentSaddleHeight` REAL, `currentHandlebarHeight` REAL, `shoeSize` INTEGER, `crankLength` INTEGER, `calculatedSaddleHeight` REAL, `calculatedSaddleTilt` REAL, `calculatedSaddleForeAft` REAL, `calculatedHandlebarHeight` REAL, `calculatedSaddleHandlebarDistance` REAL, `calculatedHandlebarWidth` REAL, `calculatedCleatPosition` REAL, `timestamp` TEXT NOT NULL, `notes` TEXT NOT NULL, `isComplete` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "userId",
+            "columnName": "userId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "bikeType",
+            "columnName": "bikeType",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "height",
+            "columnName": "height",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "inseam",
+            "columnName": "inseam",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "shoulderWidth",
+            "columnName": "shoulderWidth",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "armLength",
+            "columnName": "armLength",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "torsoLength",
+            "columnName": "torsoLength",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "frameSize",
+            "columnName": "frameSize",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "currentSaddleHeight",
+            "columnName": "currentSaddleHeight",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "currentHandlebarHeight",
+            "columnName": "currentHandlebarHeight",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "shoeSize",
+            "columnName": "shoeSize",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "crankLength",
+            "columnName": "crankLength",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "calculatedSaddleHeight",
+            "columnName": "calculatedSaddleHeight",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "calculatedSaddleTilt",
+            "columnName": "calculatedSaddleTilt",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "calculatedSaddleForeAft",
+            "columnName": "calculatedSaddleForeAft",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "calculatedHandlebarHeight",
+            "columnName": "calculatedHandlebarHeight",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "calculatedSaddleHandlebarDistance",
+            "columnName": "calculatedSaddleHandlebarDistance",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "calculatedHandlebarWidth",
+            "columnName": "calculatedHandlebarWidth",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "calculatedCleatPosition",
+            "columnName": "calculatedCleatPosition",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "timestamp",
+            "columnName": "timestamp",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "notes",
+            "columnName": "notes",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isComplete",
+            "columnName": "isComplete",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0f5b53a12fc92e1bf8fffd616b5cbff2')"
+    ]
+  }
+}
