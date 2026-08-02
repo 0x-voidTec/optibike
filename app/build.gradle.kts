@@ -112,9 +112,8 @@ dependencies {
     implementation("androidx.camera:camera-lifecycle:1.3.0")
     implementation("androidx.camera:camera-view:1.3.0")
 
-    // iTextPDF (for PDF export)
-    implementation("com.itextpdf:itext7-core:7.2.5")
-    implementation("com.itextpdf:itext7-xmp:7.2.5")
+    // PDF Export (using Apache PDFBox - open source alternative)
+    implementation("org.apache.pdfbox:pdfbox:3.0.0")
 
     // Testing
     testImplementation("junit:junit:4.13.2")
