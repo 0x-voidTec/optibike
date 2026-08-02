@@ -10,6 +10,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.optibike.fitting.presentation.screens.ar.ARMeasurementScreen
+import com.optibike.fitting.presentation.screens.bike.AddBikeScreen
+import com.optibike.fitting.presentation.screens.bike.BikeListScreen
 import com.optibike.fitting.presentation.screens.calculator.CalculatorScreen
 import com.optibike.fitting.presentation.screens.guide.GuideScreen
 import com.optibike.fitting.presentation.screens.guide.StepDetailScreen
@@ -114,6 +116,14 @@ fun AppNavHost(
         
         composable(Destinations.PDF_EXPORT) {
             PdfExportScreen(navController = navController)
+        }
+        
+        composable(Destinations.BIKE_LIST) {
+            BikeListScreen(navController = navController)
+        }
+        
+        composable(Destinations.ADD_BIKE) {
+            AddBikeScreen(navController = navController)
         }
     }
 }

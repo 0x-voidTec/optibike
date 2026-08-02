@@ -29,7 +29,8 @@ class SettingsRepositoryImpl @Inject constructor(
             units = sharedPreferences.getString("units", "metric") ?: "metric",
             isDarkModeEnabled = sharedPreferences.getBoolean("dark_mode", true),
             measurementPrecision = sharedPreferences.getInt("precision", 1),
-            areSoundsEnabled = sharedPreferences.getBoolean("sounds", true)
+            areSoundsEnabled = sharedPreferences.getBoolean("sounds", true),
+            selectedBikeId = if (sharedPreferences.contains("selected_bike_id")) sharedPreferences.getLong("selected_bike_id", -1L).let { if (it == -1L) null else it } else null
         )
     }
     
@@ -68,6 +69,16 @@ class SettingsRepositoryImpl @Inject constructor(
         sharedPreferences.edit().putBoolean("sounds", areEnabled).apply()
     }
     
+    override suspend fun updateSelectedBikeId(bikeId: Long?) {
+        val current = _settings.value
+        _settings.update { current.copy(selectedBikeId = bikeId) }
+        if (bikeId == null) {
+            sharedPreferences.edit().remove("selected_bike_id").apply()
+        } else {
+            sharedPreferences.edit().putLong("selected_bike_id", bikeId).apply()
+        }
+    }
+    
     private fun saveSettings(settings: Settings) {
         sharedPreferences.edit()
             .putString("language", settings.language)
@@ -76,5 +87,11 @@ class SettingsRepositoryImpl @Inject constructor(
             .putInt("precision", settings.measurementPrecision)
             .putBoolean("sounds", settings.areSoundsEnabled)
             .apply()
+        
+        if (settings.selectedBikeId == null) {
+            sharedPreferences.edit().remove("selected_bike_id").apply()
+        } else {
+            sharedPreferences.edit().putLong("selected_bike_id", settings.selectedBikeId).apply()
+        }
     }
 }

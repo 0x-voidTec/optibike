@@ -187,6 +187,18 @@
     <string name="pdf_recommendations">Zalecenia</string>
     <string name="pdf_notes">Uwagi</string>
 
+    <!-- Bike Profiles -->
+    <string name="bike_list_title">Profile Rowerów</string>
+    <string name="add_bike_button">Dodaj Rower</string>
+    <string name="add_bike_title">Dodaj Nowy Rower</string>
+    <string name="no_bikes_found">Nie znaleziono rowerów. Dodaj swój pierwszy rower!</string>
+    <string name="bike_name_label">Nazwa Roweru</string>
+    <string name="bike_type_label">Typ Roweru</string>
+    <string name="frame_size_label">Rozmiar ramy (cm, opcjonalnie)</string>
+    <string name="notes_label">Uwagi</string>
+    <string name="save_bike_button">Zapisz Profil Roweru</string>
+    <string name="selected_bike_label">Wybrany rower: %1$s</string>
+
     <!-- Errors & Validation -->
     <string name="error_title">Błąd</string>
     <string name="error_required_field">To pole jest wymagane</string>

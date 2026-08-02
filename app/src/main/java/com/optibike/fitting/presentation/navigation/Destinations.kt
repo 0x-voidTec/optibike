@@ -31,6 +31,8 @@ object Destinations {
     const val HISTORY = "history"
     const val SETTINGS = "settings"
     const val PDF_EXPORT = "pdf_export"
+    const val BIKE_LIST = "bike_list"
+    const val ADD_BIKE = "add_bike"
     
     // Bottom Navigation Items
     val BOTTOM_NAV_ITEMS = listOf(

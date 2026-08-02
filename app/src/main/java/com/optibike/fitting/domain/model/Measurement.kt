@@ -55,6 +55,7 @@ data class Measurement(
  * Used for form input before calculation
  */
 data class MeasurementInput(
+    val bikeId: Long? = null,
     val height: Double? = null,
     val inseam: Double? = null,
     val shoulderWidth: Double? = null,
@@ -69,6 +70,7 @@ data class MeasurementInput(
 ) {
     fun toMeasurement(): Measurement {
         return Measurement(
+            bikeId = bikeId,
             height = height,
             inseam = inseam,
             shoulderWidth = shoulderWidth,

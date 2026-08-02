@@ -3,6 +3,7 @@ package com.optibike.fitting.presentation.screens.results
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -48,7 +49,6 @@ fun ResultsScreen(
     navController: NavController,
     viewModel: CalculatorViewModel = hiltViewModel()
 ) {
-    val measurement by viewModel.measurement.collectAsState()
     val results by viewModel.results.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
     
@@ -201,7 +201,7 @@ private fun SummaryCard(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(20.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Text(
                 text = stringResource(id = R.string.results_summary),
@@ -210,24 +210,28 @@ private fun SummaryCard(
                 fontWeight = FontWeight.Bold
             )
             
-            // Key parameters in a row
-            SummaryRow(
-                label = stringResource(id = R.string.results_saddle_height),
-                value = viewModel.getFormattedResult(results.saddleHeight),
-                modifier = Modifier.weight(1f)
-            )
-            
-            SummaryRow(
-                label = stringResource(id = R.string.results_handlebar_height),
-                value = viewModel.getFormattedResult(results.handlebarHeight),
-                modifier = Modifier.weight(1f)
-            )
-            
-            SummaryRow(
-                label = stringResource(id = R.string.results_saddle_tilt),
-                value = viewModel.getFormattedAngle(results.saddleTilt),
-                modifier = Modifier.weight(1f)
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                SummaryRow(
+                    label = stringResource(id = R.string.results_saddle_height),
+                    value = viewModel.getFormattedResult(results.saddleHeight),
+                    modifier = Modifier.weight(1f)
+                )
+                
+                SummaryRow(
+                    label = stringResource(id = R.string.results_handlebar_height),
+                    value = viewModel.getFormattedResult(results.handlebarHeight),
+                    modifier = Modifier.weight(1f)
+                )
+                
+                SummaryRow(
+                    label = stringResource(id = R.string.results_saddle_tilt),
+                    value = viewModel.getFormattedAngle(results.saddleTilt),
+                    modifier = Modifier.weight(1f)
+                )
+            }
         }
     }
 }
@@ -246,13 +250,16 @@ private fun SummaryRow(
         Text(
             text = label,
             color = OptiBikeColors.TextSecondary,
-            fontSize = 12.sp
+            fontSize = 10.sp,
+            textAlign = TextAlign.Center,
+            lineHeight = 12.sp
         )
         Text(
             text = value,
             color = OptiBikeColors.PrimaryCyan,
-            fontSize = 18.sp,
-            fontWeight = FontWeight.Bold
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Bold,
+            textAlign = TextAlign.Center
         )
     }
 }

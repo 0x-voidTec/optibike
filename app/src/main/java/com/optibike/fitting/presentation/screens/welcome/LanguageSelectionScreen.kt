@@ -106,8 +106,8 @@ fun LanguageSelectionScreen(
                 val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags(selectedLanguage)
                 AppCompatDelegate.setApplicationLocales(appLocale)
                 
-                // Navigate to Guide
-                navController.navigate(Destinations.GUIDE) {
+                // Navigate to Bike List
+                navController.navigate(Destinations.BIKE_LIST) {
                     popUpTo(Destinations.LANGUAGE_SELECTION) {
                         inclusive = true
                     }

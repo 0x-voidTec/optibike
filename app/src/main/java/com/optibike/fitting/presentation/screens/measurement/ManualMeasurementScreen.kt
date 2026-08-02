@@ -63,12 +63,20 @@ fun ManualMeasurementScreen(
     stepId: Int? = null
 ) {
     val measurementInput by viewModel.measurementInput.collectAsState()
+    val selectedBike by viewModel.selectedBike.collectAsState()
     val validationError by viewModel.validationError.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
     val saveSuccess by viewModel.saveSuccess.collectAsState()
     
     // Bike type dropdown state
     var bikeTypeExpanded by remember { mutableStateOf(false) }
+    
+    // Automatically set bike type from selected bike
+    LaunchedEffect(selectedBike) {
+        selectedBike?.let {
+            viewModel.updateBikeType(it.type)
+        }
+    }
     
     // Handle successful save
     LaunchedEffect(saveSuccess) {
@@ -120,6 +128,18 @@ fun ManualMeasurementScreen(
                 .padding(top = 8.dp),
             textAlign = TextAlign.Center
         )
+
+        selectedBike?.let { bike ->
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(
+                text = stringResource(id = R.string.selected_bike_label, bike.name),
+                color = OptiBikeColors.PrimaryCyan,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Medium,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
         
         Spacer(modifier = Modifier.height(24.dp))
         

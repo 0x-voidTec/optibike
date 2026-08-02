@@ -11,12 +11,12 @@ object Validators {
     
     // Height validation (cm)
     fun validateHeight(height: Double?): Boolean {
-        return height != null && height >= 50.0 && height <= 250.0
+        return height != null && height >= 50.0 && height <= 230.0
     }
     
     // Inseam validation (cm)
     fun validateInseam(inseam: Double?): Boolean {
-        return inseam != null && inseam >= 30.0 && inseam <= 150.0
+        return inseam != null && inseam >= 30.0 && inseam <= 120.0
     }
     
     // Shoulder width validation (cm)

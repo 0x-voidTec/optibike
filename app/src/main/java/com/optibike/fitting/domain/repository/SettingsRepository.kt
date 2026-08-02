@@ -45,4 +45,9 @@ interface SettingsRepository {
      * Update sounds
      */
     suspend fun updateSounds(areEnabled: Boolean)
+
+    /**
+     * Update selected bike ID
+     */
+    suspend fun updateSelectedBikeId(bikeId: Long?)
 }

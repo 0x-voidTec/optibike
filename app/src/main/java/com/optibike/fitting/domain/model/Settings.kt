@@ -12,5 +12,6 @@ data class Settings(
     val units: String = "metric", // "metric" or "imperial"
     val isDarkModeEnabled: Boolean = true,
     val measurementPrecision: Int = 1, // 0-3 decimal places
-    val areSoundsEnabled: Boolean = true
+    val areSoundsEnabled: Boolean = true,
+    val selectedBikeId: Long? = null
 )

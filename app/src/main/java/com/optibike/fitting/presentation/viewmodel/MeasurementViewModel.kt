@@ -4,13 +4,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.optibike.fitting.domain.model.BikeType
 import com.optibike.fitting.domain.model.Measurement
+import com.optibike.fitting.domain.model.Bike
 import com.optibike.fitting.domain.model.MeasurementInput
+import com.optibike.fitting.domain.repository.BikeRepository
 import com.optibike.fitting.domain.repository.MeasurementRepository
+import com.optibike.fitting.domain.repository.SettingsRepository
 import com.optibike.fitting.domain.utils.Validators
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,12 +28,33 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class MeasurementViewModel @Inject constructor(
-    private val measurementRepository: MeasurementRepository
+    private val measurementRepository: MeasurementRepository,
+    private val bikeRepository: BikeRepository,
+    private val settingsRepository: SettingsRepository
 ) : ViewModel() {
     
     // State
     private val _measurementInput = MutableStateFlow(MeasurementInput())
     val measurementInput: StateFlow<MeasurementInput> = _measurementInput.asStateFlow()
+
+    private val _selectedBike = MutableStateFlow<Bike?>(null)
+    val selectedBike: StateFlow<Bike?> = _selectedBike.asStateFlow()
+
+    init {
+        viewModelScope.launch {
+            settingsRepository.getSettings().collectLatest { settings ->
+                _measurementInput.value = _measurementInput.value.copy(
+                    bikeId = settings.selectedBikeId
+                )
+                
+                settings.selectedBikeId?.let { id ->
+                    _selectedBike.value = bikeRepository.getBikeById(id)
+                } ?: run {
+                    _selectedBike.value = null
+                }
+            }
+        }
+    }
     
     private val _validationError = MutableStateFlow<String?>(null)
     val validationError: StateFlow<String?> = _validationError.asStateFlow()

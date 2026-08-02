@@ -172,7 +172,7 @@
     <string name="ar_not_supported_message">Your device does not support ARCore. Please use manual measurement.</string>
 
     <!-- PDF Export -->
-    <string name="pdf_title">Bike Fitting Report</string>
+    <string name="pdf_title">Bike Fitting report</string>
     <string name="pdf_date">Date</string>
     <string name="pdf_bike_type">Bike Type</string>
     <string name="pdf_height">Height</string>
@@ -180,6 +180,18 @@
     <string name="pdf_results">Results</string>
     <string name="pdf_recommendations">Recommendations</string>
     <string name="pdf_notes">Notes</string>
+
+    <!-- Bike Profiles -->
+    <string name="bike_list_title">Bike Profiles</string>
+    <string name="add_bike_button">Add Bike</string>
+    <string name="add_bike_title">Add New Bike</string>
+    <string name="no_bikes_found">No bikes found. Add your first bike!</string>
+    <string name="bike_name_label">Bike Name</string>
+    <string name="bike_type_label">Bike Type</string>
+    <string name="frame_size_label">Frame Size (cm, optional)</string>
+    <string name="notes_label">Notes</string>
+    <string name="save_bike_button">Save Bike Profile</string>
+    <string name="selected_bike_label">Selected Bike: %1$s</string>
 
     <!-- Errors & Validation -->
     <string name="error_title">Error</string>
